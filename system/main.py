@@ -29,6 +29,7 @@ from flcore.servers.serverdyn import FedDyn
 from flcore.servers.servermoon import MOON
 from flcore.servers.serverbabu import FedBABU
 from flcore.servers.serverapple import APPLE
+from flcore.servers.serverfedtrans import FedTrans 
 
 from flcore.trainmodel.models import *
 
@@ -230,6 +231,12 @@ def run(args):
         elif args.algorithm == "APPLE":
             server = APPLE(args, i)
             
+        elif args.algorithm == "FedTrans":
+            args.head = copy.deepcopy(args.model.fc)
+            args.model.fc = nn.Identity()
+            args.model = LocalModel(args.model, args.head)
+            server = FedTrans(args, i)
+            
         else:
             raise NotImplementedError
 
@@ -332,6 +339,13 @@ if __name__ == "__main__":
     # APPLE
     parser.add_argument('-dlr', "--dr_learning_rate", type=float, default=0.0)
     parser.add_argument('-L', "--L", type=float, default=1.0)
+    #FedTrans
+    parser.add_argument('-ere', "--every_recluster_eps", type=int, default=5)
+    parser.add_argument('-ed', "--emb_dim", type=int, default=128)
+    parser.add_argument('-alr', "--attn_learning_rate", type=float, default=0.005)
+    parser.add_argument('-ncl', "--num_cluster", type=int, default=10)
+    parser.add_argument('-tk', "--tk_ratio", type=float, default=0.8)
+
 
     args = parser.parse_args()
 

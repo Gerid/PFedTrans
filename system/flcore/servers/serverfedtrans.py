@@ -4,12 +4,17 @@ import copy
 import time
 import numpy as np
 import math
-from flcore.clients.clientamp import clientTrans,Cluster, weight_flatten
+import random
+
+from flcore.clients.clienttrans import clientTrans,Cluster, weight_flatten
 from flcore.servers.serverbase import Server
-from kmeans_pytorch import kmeans
+from utils.kmeans import kmeans
 from threading import Thread
 
 
+#git clone https://github.com/subhadarship/kmeans_pytorch
+#cd kmeans_pytorch
+#pip install --editable .
 class FedTrans(Server):
     def __init__(self, args, times):
         super().__init__(args, times)
@@ -18,18 +23,24 @@ class FedTrans(Server):
         self.set_slow_clients()
         self.set_clients(args, clientTrans)
 
-        self.head_dim = len(self.model.head)
 
         #cluster_number
+        self.every_recluster_eps = args.every_recluster_eps
         self.num_cluster = args.num_cluster
 
         # model embedding layer
         self.emb_dim = args.emb_dim
-        self.emb_layer = nn.Linear(len(nn.utils.parameters_to_vector(self.model.head)),self.emb_dim).to(self.device)
+
+        #head_params =  torch.cat([p.flatten() for p in self.global_model.head.parameters()])
+        #self.emb_layer = nn.Linear(len(head_params), self.emb_dim).to(self.device)
+        self.emb_layer = nn.Linear(len(nn.utils.parameters_to_vector(self.global_model.head.parameters())),self.emb_dim).to(self.device)
+        self.alpha_layer = nn.Linear(self.emb_dim, 1).to(self.device)
 
         # attn init
         self.attn_learning_rate = args.attn_learning_rate
         self.attn_init()
+        # TK -- ratio of cur head update (1-TK,TK)(agg_head, cur_head)
+        self.tk = args.tk_ratio
 
 
         print(f"\nJoin ratio / total clients: {self.join_ratio} / {self.num_clients}")
@@ -42,7 +53,7 @@ class FedTrans(Server):
                 {'params': self.emb_layer.parameters()},
                 {'params': self.inter_attn_model.parameters()},
                 {'params': self.intra_attn_model.parameters()},
-            ], lr=self.attn_learning_rate, momentum=0.9)
+                 {'params': self.alpha_layer.parameters()},           ], lr=self.attn_learning_rate, momentum=0.9)
         self.attn_loss = nn.MSELoss().to(self.device)
 
     def train(self):
@@ -60,29 +71,31 @@ class FedTrans(Server):
 
             for client in self.selected_clients:
                 if i != 0:
-                    client.prev_head = copy.deepcopy(weight_flatten(client.model.head)) 
-                    client.train()
+                    client.prev_head = weight_flatten(client.model.head)
+                client.train()
+                client.cur_head = copy.deepcopy(client.model.head)
                 client.emb(self.emb_layer)
 
             if i != 0:
                 self.attn_optimize()
             else:
-                self.form_cluster()
+                self.form_cluster(reform=True)
                 # log cluster results
                 for idx, clus in enumerate(self.clusters):
                     pass
             
-            if self.recluster == True and i%self.args.every_recluster_eps == 0 and i!=0:
+            self.recluster = True
+            if self.recluster == True and i%self.every_recluster_eps == 0 and i!=0:
                 self.form_cluster(self.recluster)
                 #log recluster info
                 #self.logger()
             
-            for cluster in self.clusters:
+            for cluster in self.active_clusters:
                 cluster.avg_update_model()
                 cluster.emb(self.emb_layer)
 
-            for cluster in self.clusters:
-                self.inter_cluster_agg(cluster)
+            for cluster in self.active_clusters:
+                self.intra_cluster_agg(cluster)
 
             self.inter_cluster_agg()
             
@@ -90,8 +103,7 @@ class FedTrans(Server):
                 for client in cluster.clients:
                     alpha = self.alpha_layer(client.emb_vec)
                     alpha = torch.sigmoid(alpha)
-                    client.model.head = self.w_add_params([alpha,1-alpha],cluster.model.head, client.model.head)
-                cluster.merge_base_per_m()
+                    client.model.head = self.w_add_params([self.tk*alpha,self.tk*(1-alpha),1-self.tk],[cluster.model.head, client.model.head, client.cur_head])
 
             # threads = [Thread(target=client.train)
             #            for client in self.clients]
@@ -112,35 +124,32 @@ class FedTrans(Server):
     def send_models(self, init_head=True):
         assert (len(self.clients) > 0)
 
+        print(self.global_model)
         for client in self.clients:
             start_time = time.time()
-            
             client.set_parameters(self.global_model,init_head)
 
             client.send_time_cost['num_rounds'] += 1
             client.send_time_cost['total_cost'] += 2 * (time.time() - start_time)
 
-    def receive_models(self):
-        assert (len(self.selected_clients) > 0)
-
-        active_clients = random.sample(
-            self.selected_clients, int((1-self.client_drop_rate) * self.join_clients))
-
-        self.uploaded_weights = []
-        self.uploaded_models = []
-
     def form_cluster(self, reform=False):
         #compute similarity k-means
         client_emb_list = [client.emb_vec.data.clone().reshape(1, -1) for client in self.clients]
         client_emb_list = torch.cat(client_emb_list, dim=0)
-        cluster_res = kmeans(X=client_emb_list, num_clusters=self.num_cluster, distance='euclidean', device=self.device)
+        print(client_emb_list)
+        
+        cluster_res = kmeans(X=client_emb_list, num_clusters=self.num_cluster, distance='euclidean',iter_limit=200, device=self.device)
 
         if reform:
             self.clusters = [Cluster(c_id, self.global_model) for c_id in range(self.num_cluster)]
 
         for client_id, cluster_id  in enumerate(cluster_res[0]):
            self.clusters[cluster_id].clients.append(self.clients[client_id])
-        
+
+        self.active_clusters = []
+        for cluster in self.clusters:
+            if(len(cluster.clients)>0):
+                self.active_clusters.append(cluster)
         
             #cluster.per_layer is the centroid per_model for clients within cluster
 
@@ -152,12 +161,12 @@ class FedTrans(Server):
             total_train += client.train_samples
         for i, client in enumerate(self.selected_clients):
             ratio = client.train_samples / total_train
-            loss += ratio * torch.linalg.norm(nn.utils.parameters_to_vector(client.head) - nn.utils.parameters_to_vector(client.prev_head))
+            loss += ratio * torch.linalg.norm(nn.utils.parameters_to_vector(client.model.head.parameters()) - nn.utils.parameters_to_vector(client.prev_head))
         loss.backward()
         self.attn_optimizer.step()
 
     def inter_cluster_agg(self):
-        cluster_emb_list = [cluster.emb_vec.clone().reshape(1, -1) for cluster in self.clusters]
+        cluster_emb_list = [cluster.emb_vec.clone().reshape(1, -1) for cluster in self.active_clusters]
         x = torch.cat(cluster_emb_list, dim=0).unsqueeze(1)
         weights = self.inter_attn_model(x).squeeze(0)
 
@@ -165,7 +174,7 @@ class FedTrans(Server):
         for i in range(weights.size()[0]):
             w = [weights[i][j] for j in range(weights[i].size()[0])]
             head = self.w_add_params(w, cluster_model_list)
-            self.clusters[i].model.head = head
+            self.active_clusters[i].model.head = head
         
 
     def intra_cluster_agg(self, cluster):
@@ -175,11 +184,10 @@ class FedTrans(Server):
         if len(cluster.clients) == 1:
             return
         weights = self.intra_attn_model(x).squeeze(0)
+        print(weights)
         client_model_list = [] 
         for i in range(len(cluster.clients)):
-            head = cluster.clients[i].model.head
-            for i, v in enumerate(head):
-                head[i] = v.clone()
+            head = copy.deepcopy(cluster.clients[i].model.head)
             client_model_list.append(head)
         weights = weights.squeeze(0)
         for i in range(weights.size()[0]):
@@ -221,6 +229,20 @@ class FedTrans(Server):
                 self.uploaded_models.append(client.model.base)
         for i, w in enumerate(self.uploaded_weights):
             self.uploaded_weights[i] = w / tot_samples
+
+    def aggregate_parameters(self):
+        assert (len(self.uploaded_models) > 0)
+
+        self.global_model.base = copy.deepcopy(self.uploaded_models[0])
+        for param in self.global_model.base.parameters():
+            param.data.zero_()
+            
+        for w, client_model in zip(self.uploaded_weights, self.uploaded_models):
+            self.add_parameters(w, client_model)
+    
+    def add_parameters(self, w, client_model):
+        for server_param, client_param in zip(self.global_model.base.parameters(), client_model.parameters()):
+            server_param.data += client_param.data.clone() * w
 
 class Attn_Model(nn.Module):
     def __init__(self, emb_dim=128, attn_dim=128, num_heads=8):
