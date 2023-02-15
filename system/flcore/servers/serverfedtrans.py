@@ -124,7 +124,6 @@ class FedTrans(Server):
     def send_models(self, init_head=True):
         assert (len(self.clients) > 0)
 
-        print(self.global_model)
         for client in self.clients:
             start_time = time.time()
             client.set_parameters(self.global_model,init_head)
@@ -136,7 +135,6 @@ class FedTrans(Server):
         #compute similarity k-means
         client_emb_list = [client.emb_vec.data.clone().reshape(1, -1) for client in self.clients]
         client_emb_list = torch.cat(client_emb_list, dim=0)
-        print(client_emb_list)
         
         cluster_res = kmeans(X=client_emb_list, num_clusters=self.num_cluster, distance='euclidean',iter_limit=200, device=self.device)
 
@@ -169,7 +167,8 @@ class FedTrans(Server):
         cluster_emb_list = [cluster.emb_vec.clone().reshape(1, -1) for cluster in self.active_clusters]
         x = torch.cat(cluster_emb_list, dim=0).unsqueeze(1)
         weights = self.inter_attn_model(x).squeeze(0)
-
+        res = [cluster_emb_list,weights]
+        torch.save(res, "cel.pt")
         cluster_model_list = [copy.deepcopy(cluster.model.head) for cluster in self.clusters]
         for i in range(weights.size()[0]):
             w = [weights[i][j] for j in range(weights[i].size()[0])]
@@ -249,18 +248,17 @@ class Attn_Model(nn.Module):
         super(Attn_Model, self).__init__()
         self.emb_dim = emb_dim
         self.attn_dim = attn_dim
-        self.inter_query_weight = nn.Linear(emb_dim, attn_dim)
-        self.inter_value_weight = nn.Linear(emb_dim, attn_dim)
+        self.query = nn.Linear(emb_dim, attn_dim)
+        self.key = nn.Linear(emb_dim, attn_dim)
         self.inter_LN = nn.LayerNorm(attn_dim)
 
         # 1-layer attention for simple verify
-        self.inter_attn = nn.MultiheadAttention(attn_dim, num_heads)
 
     def forward(self, x, models=None, prev_models=None):
         x = self.inter_LN(x) 
-        q = self.inter_query_weight(x)
-        k = self.inter_query_weight(x)
-        v = torch.zeros_like(q)
+        q = self.query(x)
+        k = self.key(x)
 
-        _, weights = self.inter_attn(q, k, v)
-        return weights
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.attn_dim ** 0.5)
+        attention_weights = torch.softmax(scores, dim=-1)
+        return attention_weights
