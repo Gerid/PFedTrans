@@ -54,7 +54,11 @@ class clientTrans(Client):
         self.train_time_cost['total_cost'] += time.time() - start_time
 
     def emb(self, emb_layer:nn.modules):
-        params =  torch.cat([p.flatten() for p in self.model.head.parameters()])
+        params = []
+        for p in self.model.head.parameters():
+            p.requires_grad = False
+            params.append(p.flatten)
+        params = torch.cat(params)
         self.emb_vec = emb_layer(params)
     
 
@@ -121,5 +125,9 @@ class Cluster():
 
 
     def emb(self, emb_layer:nn.modules):
-        params =  torch.cat([p.flatten() for p in self.model.head.parameters()])
+        params = []
+        for p in self.model.head.parameters():
+            p.requires_grad = False
+            params.append(p.flatten)
+        params = torch.cat(params)
         self.emb_vec = emb_layer(params)

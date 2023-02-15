@@ -1,1 +1,7 @@
 *__pycache__*
+
+*.gz
+*.npz
+test
+train
+file.text*

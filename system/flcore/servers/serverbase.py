@@ -178,8 +178,8 @@ class Server(object):
         tot_auc = []
         for c in self.clients:
             ct, ns, auc = c.test_metrics()
-            tot_correct.append(ct*1.0)
             tot_auc.append(auc*ns)
+            tot_correct.append(ct*1.0)
             num_samples.append(ns)
 
         ids = [c.id for c in self.clients]
@@ -205,9 +205,9 @@ class Server(object):
 
         test_acc = sum(stats[2])*1.0 / sum(stats[1])
         test_auc = sum(stats[3])*1.0 / sum(stats[1])
+        aucs = [a / n for a, n in zip(stats[3], stats[1])]
         train_loss = sum(stats_train[2])*1.0 / sum(stats_train[1])
         accs = [a / n for a, n in zip(stats[2], stats[1])]
-        aucs = [a / n for a, n in zip(stats[3], stats[1])]
         
         if acc == None:
             self.rs_test_acc.append(test_acc)
@@ -221,10 +221,12 @@ class Server(object):
 
         print("Averaged Train Loss: {:.4f}".format(train_loss))
         print("Averaged Test Accurancy: {:.4f}".format(test_acc))
-        print("Averaged Test AUC: {:.4f}".format(test_auc))
+        if self.dataset[:5]!="Cifar":
+            print("Averaged Test AUC: {:.4f}".format(test_auc))
         # self.print_(test_acc, train_acc, train_loss)
         print("Std Test Accurancy: {:.4f}".format(np.std(accs)))
-        print("Std Test AUC: {:.4f}".format(np.std(aucs)))
+        if self.dataset[:5]!="Cifar":
+            print("Std Test AUC: {:.4f}".format(np.std(aucs)))
 
     def print_(self, test_acc, test_auc, train_loss):
         print("Average Test Accurancy: {:.4f}".format(test_acc))

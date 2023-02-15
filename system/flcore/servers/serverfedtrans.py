@@ -93,11 +93,13 @@ class FedTrans(Server):
             for cluster in self.active_clusters:
                 cluster.avg_update_model()
                 cluster.emb(self.emb_layer)
-
+            
+            res = {}
+            res['intra_clusters_res'] = []
             for cluster in self.active_clusters:
-                self.intra_cluster_agg(cluster)
-
-            self.inter_cluster_agg()
+                res['intra_clusters_res'].append(self.intra_cluster_agg(cluster))
+            res['inter_clusters_res'] = self.inter_cluster_agg()
+            torch.save(res, "res.pt")
             
             for cluster in self.clusters:
                 for client in cluster.clients:
@@ -165,35 +167,37 @@ class FedTrans(Server):
 
     def inter_cluster_agg(self):
         cluster_emb_list = [cluster.emb_vec.clone().reshape(1, -1) for cluster in self.active_clusters]
-        x = torch.cat(cluster_emb_list, dim=0).unsqueeze(1)
-        weights = self.inter_attn_model(x).squeeze(0)
+        x = torch.cat(cluster_emb_list, dim=0).squeeze(1)
+        weights = self.inter_attn_model(x)
         res = [cluster_emb_list,weights]
-        torch.save(res, "cel.pt")
         cluster_model_list = [copy.deepcopy(cluster.model.head) for cluster in self.clusters]
         for i in range(weights.size()[0]):
             w = [weights[i][j] for j in range(weights[i].size()[0])]
             head = self.w_add_params(w, cluster_model_list)
             self.active_clusters[i].model.head = head
+        return res
         
 
     def intra_cluster_agg(self, cluster):
         client_emb_list = [client.emb_vec.clone().reshape(1, -1) for client in cluster.clients]
 
-        x = torch.cat(client_emb_list, dim=0).unsqueeze(1)
+        x = torch.cat(client_emb_list, dim=0).squeeze(1)
         if len(cluster.clients) == 1:
             return
-        weights = self.intra_attn_model(x).squeeze(0)
+        weights = self.intra_attn_model(x)
         print(weights)
         client_model_list = [] 
         for i in range(len(cluster.clients)):
             head = copy.deepcopy(cluster.clients[i].model.head)
             client_model_list.append(head)
         weights = weights.squeeze(0)
+        res = [client_emb_list,weights]
         for i in range(weights.size()[0]):
             w = [weights[i][j] for j in range(weights[i].size()[0])]
             head = self.w_add_params(w, client_model_list)
             cluster.clients[i].model.head = head
             #client.head_temp = heads
+        return res
 
     def cluster_update(self):
         for cluster in self.clusters:
@@ -250,15 +254,18 @@ class Attn_Model(nn.Module):
         self.attn_dim = attn_dim
         self.query = nn.Linear(emb_dim, attn_dim)
         self.key = nn.Linear(emb_dim, attn_dim)
-        self.inter_LN = nn.LayerNorm(attn_dim)
+        #self.inter_LN = nn.LayerNorm(attn_dim)
 
         # 1-layer attention for simple verify
 
     def forward(self, x, models=None, prev_models=None):
-        x = self.inter_LN(x) 
+        #x = self.inter_LN(x) 
         q = self.query(x)
         k = self.key(x)
 
-        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.attn_dim ** 0.5)
+        scores = torch.matmul(q, k.transpose(-2, -1)) 
+
+        #scaled coef removed since we want to diff weight matrix entries
+        #scores = torch.matmul(q, k.transpose(-2, -1)) / (self.attn_dim ** 0.5)
         attention_weights = torch.softmax(scores, dim=-1)
         return attention_weights
