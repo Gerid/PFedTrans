@@ -344,7 +344,7 @@ if __name__ == "__main__":
     parser.add_argument('-ed', "--emb_dim", type=int, default=128)
     parser.add_argument('-alr', "--attn_learning_rate", type=float, default=0.005)
     parser.add_argument('-ncl', "--num_cluster", type=int, default=10)
-    parser.add_argument('-tk', "--tk_ratio", type=float, default=0.8)
+    parser.add_argument('-tk', "--tk_ratio", type=float, default=0.5)
 
 
     args = parser.parse_args()
