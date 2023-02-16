@@ -1,4 +1,5 @@
 import time
+import torch
 from flcore.clients.clientavg import clientAVG
 from flcore.servers.serverbase import Server
 from threading import Thread
@@ -42,6 +43,9 @@ class FedAvg(Server):
             self.aggregate_parameters()
 
             self.Budget.append(time.time() - s_t)
+            print("saving global model")
+            torch.save(self.global_model, "gm_avg.pt")
+            print("model saved")
             print('-'*25, 'time cost', '-'*25, self.Budget[-1])
 
         print("\nBest global accuracy.")

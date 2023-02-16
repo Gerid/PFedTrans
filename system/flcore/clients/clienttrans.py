@@ -10,11 +10,13 @@ class clientTrans(Client):
     def __init__(self, args, id, train_samples, test_samples, **kwargs):
         super().__init__(args, id, train_samples, test_samples, **kwargs)
         
-        self.optimizer = torch.optim.SGD(self.model.parameters(), lr=self.learning_rate)
+        self.optimizer = torch.optim.SGD(self.model.base.parameters(), lr=self.learning_rate)
+        self.hoptimizer = torch.optim.SGD(self.model.head.parameters(), lr=self.learning_rate)
 
         self.cluster_id = None
         self.emb_vec = None
         self.prev_head = []
+        self.hlocal_steps = args.hlocal_steps
 
         self.loss = nn.CrossEntropyLoss()
 
@@ -28,6 +30,35 @@ class clientTrans(Client):
         max_local_steps = self.local_steps
         if self.train_slow:
             max_local_steps = np.random.randint(1, max_local_steps // 2)
+
+        for param in self.model.base.parameters():
+            param.requires_grad = False
+        for param in self.model.head.parameters():
+            param.requires_grad = True
+        
+        self.phead = copy.deepcopy(self.model.head)
+
+        for step in range(self.hlocal_steps):
+            for x, y in trainloader:
+                if type(x) == type([]):
+                    x[0] = x[0].to(self.device)
+                else:
+                    x = x.to(self.device)
+                y = y.to(self.device)
+                if self.train_slow:
+                    time.sleep(0.1 * np.abs(np.random.rand()))
+                self.hoptimizer.zero_grad()
+                output = self.model(x)
+                loss = self.loss(output, y)
+
+                loss.backward()
+                self.hoptimizer.step()
+        self.save_psub()
+
+        for param in self.model.base.parameters():
+            param.requires_grad = True
+        for param in self.model.head.parameters():
+            param.requires_grad = False
 
         for step in range(max_local_steps):
             for x, y in trainloader:
@@ -43,8 +74,9 @@ class clientTrans(Client):
                 loss = self.loss(output, y)
 
                 loss.backward()
-                self.optimizer.step()
 
+                
+         
         # self.model.cpu()
         del trainloader
 
@@ -53,13 +85,15 @@ class clientTrans(Client):
         self.train_time_cost['num_rounds'] += 1
         self.train_time_cost['total_cost'] += time.time() - start_time
 
+    def save_psub(self):
+        psub = []
+        for p_1, p_2 in zip(self.model.head.parameters(), self.phead.parameters()):
+            sub = p_1.view(-1) - p_2.view(-1)
+            psub.append(sub)
+        self.psub = torch.concat(psub, dim=0)
+
     def emb(self, emb_layer:nn.modules):
-        params = []
-        for p in self.model.head.parameters():
-            p.requires_grad = False
-            params.append(p.flatten)
-        params = torch.cat(params)
-        self.emb_vec = emb_layer(params)
+        self.emb_vec = emb_layer(self.psub)
     
 
     def set_parameters(self, model,init_head=True):
