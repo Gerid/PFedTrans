@@ -1,6 +1,7 @@
 import os
 import copy
 import h5py
+import torch
 from flcore.clients.clientpFedMe import clientpFedMe
 from flcore.servers.serverbase import Server
 from threading import Thread
@@ -49,6 +50,7 @@ class pFedMe(Server):
             self.receive_models()
             self.aggregate_parameters()
             self.beta_aggregate_parameters()
+
 
         # print("\nBest global accuracy.")
         # # self.print_(max(self.rs_test_acc), max(
