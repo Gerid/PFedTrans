@@ -166,3 +166,7 @@ nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo Fed
 # nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 4 -data agnews -m lstm -algo FedMTL -gr 500 -itk 4000 -did 1 -go lstm > agnews_FedMTL.out 2>&1 &
 
 # nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 4 -data agnews -m lstm -algo FedAMP -gr 500 -alk 5e-3 -lam 5e-7 -sg 1e-1 -did 0 -go lstm > agnews_fedamp.out 2>&1 &
+
+
+# ==============================================================train FedTrans
+# python main.py -data mnist -m cnn -algo FedTrans -gr 2000 -did 0 -go cnn -nc 20
