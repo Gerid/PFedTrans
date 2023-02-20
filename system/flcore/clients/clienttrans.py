@@ -93,7 +93,13 @@ class clientTrans(Client):
         self.psub = torch.concat(psub, dim=0)
 
     def emb(self, emb_layer:nn.modules):
-        self.emb_vec = emb_layer(self.psub)
+        params = []
+        for p in self.phead.parameters():
+            params.append(p.flatten())
+        params = torch.cat(params)
+        emb_m = emb_layer(params) 
+        emb_g = emb_layer(self.psub)
+        self.emb_vec = torch.cat(emb_m, emb_g)
     
 
     def set_parameters(self, model,init_head=True):
@@ -161,7 +167,6 @@ class Cluster():
     def emb(self, emb_layer:nn.modules):
         params = []
         for p in self.model.head.parameters():
-            p.requires_grad = False
-            params.append(p.flatten)
+            params.append(p.flatten())
         params = torch.cat(params)
         self.emb_vec = emb_layer(params)

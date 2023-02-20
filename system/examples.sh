@@ -3,15 +3,15 @@
 # ===============================================================horizontal(mnist)======================================================================
 
 
-# rm ../dataset/mnist/config.json
-# cd ../dataset/
-# nohup python -u generate_mnist.py noniid - dir > mnist_dataset.out 2>&1
-# cd ../system/
+rm ../dataset/mnist/config.json
+cd ../dataset/ 
+nohup python -u generate_mnist.py noniid - dir > mnist_dataset.out 2>&1
+cd ../system/
 
-# nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo FedAvg -gr 2000 -did 0 -go dnn > mnist_fedavg.out 2>&1 &
-# nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m cnn -algo FedAvg -gr 2000 -did 0 -go cnn > mnist_fedavg1.out 2>&1 &
-# nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m resnet -algo FedAvg -gr 2000 -did 0 -go resnet > mnist_fedavg2.out 2>&1 &
-# nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo FedAvg -gr 2000 -did 0 -cdr 0.5 -go unstable > mnist_fedavg1.out 2>&1 &
+nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo FedAvg -gr 2000 -did 0 -go dnn > mnist_fedavg.out 2>&1 &
+nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m cnn -algo FedAvg -gr 2000 -did 0 -go cnn > mnist_fedavg1.out 2>&1 &
+nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m resnet -algo FedAvg -gr 2000 -did 0 -go resnet > mnist_fedavg2.out 2>&1 &
+nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo FedAvg -gr 2000 -did 0 -cdr 0.5 -go unstable > mnist_fedavg1.out 2>&1 &
 
 # nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo FedProx -gr 2000 -did 0 -mu 0.001 -go dnn > mnist_fedprox.out 2>&1 &
 # nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m cnn -algo FedProx -gr 2000 -did 0 -mu 0.001 -go cnn > mnist_fedprox1.out 2>&1 &
