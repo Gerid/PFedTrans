@@ -51,9 +51,8 @@ class FedTrans(Server):
         self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
         self.attn_optimizer = torch.optim.SGD([
                 {'params': self.emb_layer.parameters()},
-                {'params': self.inter_attn_model.parameters()},
                 {'params': self.intra_attn_model.parameters()},
-                 {'params': self.alpha_layer.parameters()},           ], lr=self.attn_learning_rate, momentum=0.9)
+                 ], lr=self.attn_learning_rate, momentum=0.9)
         self.attn_loss = nn.MSELoss().to(self.device)
 
     def train(self):
@@ -83,6 +82,11 @@ class FedTrans(Server):
                 # log cluster results
                 for idx, clus in enumerate(self.clusters):
                     pass
+
+            """
+            TODO: consider if it is better that send cluster centroid model to clients and perform local training
+            compared to current method, this method is resources costly but seems more resonable.
+            """
             
             self.recluster = True
             if self.recluster == True and i%self.every_recluster_eps == 0 and i!=0:
@@ -91,21 +95,17 @@ class FedTrans(Server):
                 #self.logger()
             
             for cluster in self.active_clusters:
-                cluster.avg_update()
+                cluster.avg_update_model()
                 cluster.emb(self.emb_layer)
             
-            res = {}
-            res['intra_clusters_res'] = []
             for cluster in self.active_clusters:
-                res['intra_clusters_res'].append(self.intra_cluster_agg(cluster))
-            res['inter_clusters_res'] = self.inter_cluster_agg()
-            torch.save(res, "res.pt")
+                self.intra_cluster_agg(cluster)
             
-            for cluster in self.clusters:
-                for client in cluster.clients:
-                    alpha = self.alpha_layer(client.emb_vec)
-                    alpha = torch.sigmoid(alpha)
-                    client.model.head = self.w_add_params([self.tk*alpha,self.tk*(1-alpha),1-self.tk],[cluster.model.head, client.model.head, client.cur_head])
+            #for cluster in self.clusters:
+                #for client in cluster.clients:
+                    #alpha = self.alpha_layer(client.emb_vec)
+                    #alpha = torch.sigmoid(alpha)
+                    #client.model.head = self.w_add_params([self.tk*alpha,self.tk*(1-alpha),1-self.tk],[cluster.model.head, client.model.head, client.cur_head])
 
             # threads = [Thread(target=client.train)
             #            for client in self.clients]
@@ -164,7 +164,8 @@ class FedTrans(Server):
             loss += ratio * torch.linalg.norm(nn.utils.parameters_to_vector(client.model.head.parameters()) - nn.utils.parameters_to_vector(client.prev_head))
         loss.backward()
         self.attn_optimizer.step()
-
+    
+    """
     def inter_cluster_agg(self):
         cluster_emb_list = [cluster.emb_vec.clone().reshape(1, -1) for cluster in self.active_clusters]
         x = torch.cat(cluster_emb_list, dim=0).squeeze(1)
@@ -176,7 +177,7 @@ class FedTrans(Server):
             head = self.w_add_params(w, cluster_model_list)
             self.active_clusters[i].model.head = head
         return res
-        
+    """
 
     def intra_cluster_agg(self, cluster):
         client_emb_list = [client.emb_vec.clone().reshape(1, -1) for client in cluster.clients]
@@ -186,16 +187,15 @@ class FedTrans(Server):
             return
         weights = self.intra_attn_model(x)
         print("weights:{}".format(weights))
-        client_model_list = [] 
+        sub_head_list = [] 
         for i in range(len(cluster.clients)):
-            head = copy.deepcopy(cluster.clients[i].model.head)
-            client_model_list.append(head)
+            sub_head_list.append(cluster.clients[i].sub_head)
         weights = weights.squeeze(0)
         res = [client_emb_list,weights]
         for i in range(weights.size()[0]):
             w = [weights[i][j] for j in range(weights[i].size()[0])]
-            head = self.w_add_params(w, client_model_list)
-            cluster.clients[i].model.head = head
+            sub_head = self.w_add_params(w, sub_head_list)
+            cluster.clients[i].add_sub(sub_head)
             #client.head_temp = heads
         return res
 
@@ -204,13 +204,14 @@ class FedTrans(Server):
             cluster.update_model()
             cluster.emb_vec = self.emb_layer(cluster.model.head)
 
-    def w_add_params(self, m_weights, models):
-        res = copy.deepcopy(models[0])
+    def w_add_params(self, m_weights, models_params):
+        
+        res = copy.deepcopy(self.global_model.head)
         for param in res.parameters():
             param.data.zero_()
             
-        for w, model in zip(m_weights, models):
-            for res_param, model_param in zip(res.parameters(), model.parameters()):
+        for w, model_params in zip(m_weights, models_params):
+            for res_param, model_param in zip(res.parameters(), model_params):
                 res_param.data += model_param.data.clone() * w
         return res
 

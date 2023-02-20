@@ -75,6 +75,7 @@ class clientTrans(Client):
                 loss = self.loss(output, y)
 
                 loss.backward()
+                self.optimizer.step()
 
                 
          
@@ -102,7 +103,15 @@ class clientTrans(Client):
         params = torch.cat(params)
         emb_m = emb_layer(params) 
         emb_g = emb_layer(self.psub)
-        self.emb_vec = torch.cat(emb_m, emb_g)
+        self.emb_vec = torch.cat([emb_m, emb_g])
+
+    """
+        sub:[params] 
+    """
+    def add_sub(self, sub):
+        for h, s in zip(self.model.head.parameters(), sub.parameters()):
+            h.data += s.data
+            
     
 
     def set_parameters(self, model,init_head=True):
@@ -180,4 +189,4 @@ class Cluster():
         params = torch.cat(params)
         emb_m = emb_layer(params)
         emb_g = emb_layer(self.psub)
-        self.emb_vec = torch.cat(emb_m, emb_g)
+        self.emb_vec = torch.cat([emb_m, emb_g])
