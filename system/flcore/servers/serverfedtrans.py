@@ -47,8 +47,8 @@ class FedTrans(Server):
         print("Finished creating server and clients.")
 
     def attn_init(self):
-        self.intra_attn_model = Attn_Model().to(self.device)
-        self.inter_attn_model = Attn_Model().to(self.device)
+        self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim*2, attn_dim=128*2).to(self.device) # emb client model + grad
+        self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
         self.attn_optimizer = torch.optim.SGD([
                 {'params': self.emb_layer.parameters()},
                 {'params': self.inter_attn_model.parameters()},
