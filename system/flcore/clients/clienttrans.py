@@ -16,6 +16,7 @@ class clientTrans(Client):
         self.cluster_id = None
         self.emb_vec = None
         self.prev_head = []
+        self.psub = None
         self.hlocal_steps = args.hlocal_steps
 
         self.loss = nn.CrossEntropyLoss()
@@ -53,7 +54,7 @@ class clientTrans(Client):
 
                 loss.backward()
                 self.hoptimizer.step()
-        self.save_psub()
+        self.get_psub()
 
         for param in self.model.base.parameters():
             param.requires_grad = True
@@ -85,9 +86,11 @@ class clientTrans(Client):
         self.train_time_cost['num_rounds'] += 1
         self.train_time_cost['total_cost'] += time.time() - start_time
 
-    def save_psub(self):
+    def get_psub(self):
         psub = []
+        self.sub_head = []
         for p_1, p_2 in zip(self.model.head.parameters(), self.phead.parameters()):
+            self.sub_head.append(p_1-p_2)
             sub = p_1.view(-1) - p_2.view(-1)
             psub.append(sub)
         self.psub = torch.concat(psub, dim=0)
@@ -129,12 +132,14 @@ class Cluster():
         self.clients = []
         self.model = copy.deepcopy(model)
         self.emb_vec = None
+        self.psub = None
         self.active = False
         self.selected_clients = []
     
     def avg_update_model(self):
         self.uploaded_weights = []
         self.uploaded_models = []
+        self.uploaded_psubs = []
         tot_samples = 0
         for client in self.clients:
             client_time_cost = client.train_time_cost['total_cost'] / client.train_time_cost['num_rounds'] + client.send_time_cost['num_rounds']
@@ -142,6 +147,7 @@ class Cluster():
             tot_samples += client.train_samples
             self.uploaded_weights.append(client.train_samples)
             self.uploaded_models.append(client.model)
+            self.uploaded_psubs.append(client.psub)
         for i, w in enumerate(self.uploaded_weights):
             self.uploaded_weights[i] = w / tot_samples
 
@@ -151,8 +157,11 @@ class Cluster():
         self.model = copy.deepcopy(self.uploaded_models[0])
         for param in self.model.parameters():
             param.data.zero_()
+        
+        self.psub = torch.zeros_like(self.uploaded_psubs[0])
             
-        for w, client_model in zip(self.uploaded_weights, self.uploaded_models):
+        for w, client_model,client_psub in zip(self.uploaded_weights, self.uploaded_models, self.uploaded_psubs):
+            self.psub += w * client_psub
             for cluster_param, client_param in zip(self.model.parameters(), client_model.parameters()):
                 cluster_param.data += client_param.data.clone() * w
 
@@ -169,4 +178,6 @@ class Cluster():
         for p in self.model.head.parameters():
             params.append(p.flatten())
         params = torch.cat(params)
-        self.emb_vec = emb_layer(params)
+        emb_m = emb_layer(params)
+        emb_g = emb_layer(self.psub)
+        self.emb_vec = torch.cat(emb_m, emb_g)

@@ -91,7 +91,7 @@ class FedTrans(Server):
                 #self.logger()
             
             for cluster in self.active_clusters:
-                cluster.avg_update_model()
+                cluster.avg_update()
                 cluster.emb(self.emb_layer)
             
             res = {}
@@ -185,7 +185,7 @@ class FedTrans(Server):
         if len(cluster.clients) == 1:
             return
         weights = self.intra_attn_model(x)
-        print(weights)
+        print("weights:{}".format(weights))
         client_model_list = [] 
         for i in range(len(cluster.clients)):
             head = copy.deepcopy(cluster.clients[i].model.head)
