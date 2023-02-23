@@ -30,24 +30,25 @@ class FedTrans(Server):
 
         # model embedding layer
         self.emb_dim = args.emb_dim
+        self.attn_dim = args.attn_dim
 
         #head_params =  torch.cat([p.flatten() for p in self.global_model.head.parameters()])
         #self.emb_layer = nn.Linear(len(head_params), self.emb_dim).to(self.device)
         self.emb_layer = nn.Linear(len(nn.utils.parameters_to_vector(self.global_model.head.parameters())),self.emb_dim).to(self.device)
-        self.alpha_layer = nn.Linear(self.emb_dim, 1).to(self.device)
+        #self.alpha_layer = nn.Linear(self.emb_dim, 1).to(self.device)
 
         # attn init
         self.attn_learning_rate = args.attn_learning_rate
         self.attn_init()
         # TK -- ratio of cur head update (1-TK,TK)(agg_head, cur_head)
-        self.tk = args.tk_ratio
+        #self.tk = args.tk_ratio
 
 
         print(f"\nJoin ratio / total clients: {self.join_ratio} / {self.num_clients}")
         print("Finished creating server and clients.")
 
     def attn_init(self):
-        self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim*2, attn_dim=128*2).to(self.device) # emb client model + grad
+        self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim*2, attn_dim=self.attn_dim*2).to(self.device) # emb client model + grad
         self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
         self.attn_optimizer = torch.optim.SGD([
                 {'params': self.emb_layer.parameters()},
@@ -160,6 +161,7 @@ class FedTrans(Server):
         for client in self.clients:
             total_train += client.train_samples
         for i, client in enumerate(self.selected_clients):
+            client.train_attn()
             ratio = client.train_samples / total_train
             loss += ratio * torch.linalg.norm(nn.utils.parameters_to_vector(client.model.head.parameters()) - nn.utils.parameters_to_vector(client.prev_head))
         loss.backward()

@@ -20,6 +20,7 @@ class clientTrans(Client):
         self.hlocal_steps = args.hlocal_steps
 
         self.loss = nn.CrossEntropyLoss()
+        self.atoptimizer = None
 
     def train(self):
         trainloader = self.load_train_data()
