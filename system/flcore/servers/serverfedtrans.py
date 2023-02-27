@@ -158,13 +158,13 @@ class FedTrans(Server):
         loss = 0
         total_train = 0
         self.attn_optimizer.zero_grad()
-        for client in self.clients:
+        for client in self.selected_clients:
             total_train += client.train_samples
         for i, client in enumerate(self.selected_clients):
-            client.train_attn()
-            ratio = client.train_samples / total_train
-            loss += ratio * torch.linalg.norm(nn.utils.parameters_to_vector(client.model.head.parameters()) - nn.utils.parameters_to_vector(client.prev_head))
-        loss.backward()
+            grad = client.model.head.grad.clone().detach()
+            client.model.cur_head.backward(grad)
+        
+        w_head.backward(grad)
         self.attn_optimizer.step()
     
     """
