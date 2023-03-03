@@ -195,9 +195,10 @@ class FedTrans(Server):
         weights = weights.squeeze(0)
         res = [client_emb_list,weights]
         for i in range(weights.size()[0]):
-            w = [weights[i][j] for j in range(weights[i].size()[0])]
-            sub_head = self.w_add_params(w, sub_head_list)
-            cluster.clients[i].add_sub(sub_head)
+            w = weights[i]
+            c_dict = cluster.clients[i].state_dict()
+            c_dict_with_g, c_dict = self.w_add_parameters(c_dict, w, sub_head_list)
+            cluster.clients[i].add_sub(sd)
             #client.head_temp = heads
         return res
 
