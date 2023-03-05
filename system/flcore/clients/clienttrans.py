@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from flcore.clients.clientbase import Client
+from collections import OrderedDict
 import numpy as np
 import time
 import copy
@@ -33,34 +34,12 @@ class clientTrans(Client):
         if self.train_slow:
             max_local_steps = np.random.randint(1, max_local_steps // 2)
 
-        for param in self.model.base.parameters():
-            param.requires_grad = False
-        for param in self.model.head.parameters():
-            param.requires_grad = True
+        #for param in self.model.base.parameters():
+            #param.requires_grad = False
+        #for param in self.model.head.parameters():
+            #param.requires_grad = True
         
         self.phead = copy.deepcopy(self.model.head)
-
-        for step in range(self.hlocal_steps):
-            for x, y in trainloader:
-                if type(x) == type([]):
-                    x[0] = x[0].to(self.device)
-                else:
-                    x = x.to(self.device)
-                y = y.to(self.device)
-                if self.train_slow:
-                    time.sleep(0.1 * np.abs(np.random.rand()))
-                self.hoptimizer.zero_grad()
-                output = self.model(x)
-                loss = self.loss(output, y)
-
-                loss.backward()
-                self.hoptimizer.step()
-        self.get_psub()
-
-        for param in self.model.base.parameters():
-            param.requires_grad = True
-        for param in self.model.head.parameters():
-            param.requires_grad = False
 
         for step in range(max_local_steps):
             for x, y in trainloader:
@@ -77,6 +56,28 @@ class clientTrans(Client):
 
                 loss.backward()
                 self.optimizer.step()
+        self.get_psub()
+
+        #for param in self.model.base.parameters():
+            #param.requires_grad = True
+        #for param in self.model.head.parameters():
+            #param.requires_grad = False
+
+        #for step in range(max_local_steps):
+            #for x, y in trainloader:
+                #if type(x) == type([]):
+                    #x[0] = x[0].to(self.device)
+                #else:
+                    #x = x.to(self.device)
+                #y = y.to(self.device)
+                #if self.train_slow:
+                    #time.sleep(0.1 * np.abs(np.random.rand()))
+                #self.optimizer.zero_grad()
+                #output = self.model(x)
+                #loss = self.loss(output, y)
+
+                #loss.backward()
+                #self.optimizer.step()
 
                 
          
@@ -90,10 +91,12 @@ class clientTrans(Client):
 
     def get_psub(self):
         psub = []
-        self.sub_head = []
-        for p_1, p_2 in zip(self.model.head.parameters(), self.phead.parameters()):
-            self.sub_head.append(p_1-p_2)
-            sub = p_1.view(-1) - p_2.view(-1)
+        self.sub_head = OrderedDict()
+
+        for (n1,p_1), (n2, p_2) in zip(self.model.head.named_parameters(), self.phead.named_parameters()):
+            assert(n1==n2)    
+            self.sub_head[n1] = p_1.data.clone() - p_2.data.clone()
+            sub = p_1.data.view(-1) - p_2.data.view(-1)
             psub.append(sub)
         self.psub = torch.concat(psub, dim=0)
 
@@ -106,12 +109,9 @@ class clientTrans(Client):
         emb_g = emb_layer(self.psub)
         self.emb_vec = torch.cat([emb_m, emb_g])
 
-    """
-        sub:[params] 
-    """
     def add_sub(self, sub):
-        for h, s in zip(self.model.head.parameters(), sub.parameters()):
-            h.data += s.data
+        for n, p in self.model.head.named_parameters():
+            p.data = p.data + sub[n].clone()
             
     
 
@@ -171,9 +171,9 @@ class Cluster():
         self.psub = torch.zeros_like(self.uploaded_psubs[0])
             
         for w, client_model,client_psub in zip(self.uploaded_weights, self.uploaded_models, self.uploaded_psubs):
-            self.psub += w * client_psub
+            self.psub = self.psub + w * client_psub
             for cluster_param, client_param in zip(self.model.parameters(), client_model.parameters()):
-                cluster_param.data += client_param.data.clone() * w
+                cluster_param.data = cluster_param.data + client_param.data.clone() * w
 
 
     def set_parameters(self, model):

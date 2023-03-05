@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python: 当前文件",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": True,
+            "cwd": "c:\\Users\\fang\\Documents\\gitspace\\PFL-Non-IID\\system",
+            "args": [
+                "-data", "mnist",
+                "-m", "cnn",
+                "-algo", "FedTrans",
+                "-gr", "2000",
+                "-did", "0",
+                "-go", "cnn",
+                "-nc", "20",
+                "-ere", "20",
+            ]
+        }
+    ]
+}

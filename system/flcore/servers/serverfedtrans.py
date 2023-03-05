@@ -6,6 +6,7 @@ import numpy as np
 import math
 import random
 
+from collections import OrderedDict
 from flcore.clients.clienttrans import clientTrans,Cluster, weight_flatten
 from flcore.servers.serverbase import Server
 from utils.kmeans import kmeans
@@ -31,6 +32,7 @@ class FedTrans(Server):
         # model embedding layer
         self.emb_dim = args.emb_dim
         self.attn_dim = args.attn_dim
+        
 
         #head_params =  torch.cat([p.flatten() for p in self.global_model.head.parameters()])
         #self.emb_layer = nn.Linear(len(head_params), self.emb_dim).to(self.device)
@@ -49,7 +51,9 @@ class FedTrans(Server):
 
     def attn_init(self):
         self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim*2, attn_dim=self.attn_dim*2).to(self.device) # emb client model + grad
-        self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
+        #self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
+        self.param_list = list(self.emb_layer.parameters())
+        self.param_list.extend(list(self.intra_attn_model.parameters()))
         self.attn_optimizer = torch.optim.SGD([
                 {'params': self.emb_layer.parameters()},
                 {'params': self.intra_attn_model.parameters()},
@@ -57,7 +61,9 @@ class FedTrans(Server):
         self.attn_loss = nn.MSELoss().to(self.device)
 
     def train(self):
+        torch.autograd.set_detect_anomaly(True)
         for i in range(self.global_rounds+1):
+            gst_time = time.time()
             self.selected_clients = self.select_clients()
             if(i==0):
                 self.send_models()
@@ -69,17 +75,27 @@ class FedTrans(Server):
                 print("\nEvaluate global model")
                 self.evaluate()
 
+
+            start_time = time.time()
             for client in self.selected_clients:
-                if i != 0:
-                    client.prev_head = weight_flatten(client.model.head)
+                #if i != 0:
+                    #client.prev_head = weight_flatten(client.model.head)
                 client.train()
-                client.cur_head = copy.deepcopy(client.model.head)
+                #client.cur_head = copy.deepcopy(client.model.head)
                 client.emb(self.emb_layer)
+            end_time = time.time()
+            print("clients training time cost:{}s".format(end_time-start_time))
 
             if i != 0:
+                start_time = time.time()
                 self.attn_optimize()
+                end_time = time.time()
+                print("attn_optimize time cost:{}s".format(end_time-start_time))
             else:
+                start_time = time.time()
                 self.form_cluster(reform=True)
+                end_time = time.time()
+                print("form_cluster time cost:{}s".format(end_time-start_time))
                 # log cluster results
                 for idx, clus in enumerate(self.clusters):
                     pass
@@ -99,8 +115,11 @@ class FedTrans(Server):
                 cluster.avg_update_model()
                 cluster.emb(self.emb_layer)
             
+            start_time = time.time()
             for cluster in self.active_clusters:
                 self.intra_cluster_agg(cluster)
+            end_time = time.time()
+            print("intra_cluster_agg time cost:{}s".format(end_time-start_time))
             
             #for cluster in self.clusters:
                 #for client in cluster.clients:
@@ -115,6 +134,8 @@ class FedTrans(Server):
 
             self.receive_models()
             self.aggregate_parameters()
+            gend_time = time.time()
+            print("iter time cost:{}s".format(gend_time-gst_time))
 
         print("\nBest global accuracy.")
         # self.print_(max(self.rs_test_acc), max(
@@ -155,17 +176,23 @@ class FedTrans(Server):
             #cluster.per_layer is the centroid per_model for clients within cluster
 
     def attn_optimize(self):
-        loss = 0
-        total_train = 0
-        self.attn_optimizer.zero_grad()
-        for client in self.selected_clients:
-            total_train += client.train_samples
-        for i, client in enumerate(self.selected_clients):
-            grad = client.model.head.grad.clone().detach()
-            client.model.cur_head.backward(grad)
+        #loss = 0
+        #total_train = 0
+        for cluster in self.active_clusters:
+            delta_thetas = [c.sub_head for c in cluster.clients]
+            self.attn_optimizer.zero_grad()
+            for lv, delta_theta in zip(cluster.lvs, delta_thetas):
+                p_d = torch.autograd.grad(lv, self.param_list, list(delta_theta.values()), retain_graph=True)
+                for p, g in zip(self.param_list, p_d):
+                    p.grad = p.grad + g
+                torch.nn.utils.clip_grad_norm_(self.param_list, 50)
+            self.attn_optimizer.step()
+        #for client in self.selected_clients:
+            #total_train += client.train_samples
+        #for i, client in enumerate(self.selected_clients):
+            #grad = client.model.head.grad.clone().detach()
+            #client.model.cur_head.backward(grad)
         
-        w_head.backward(grad)
-        self.attn_optimizer.step()
     
     """
     def inter_cluster_agg(self):
@@ -191,14 +218,15 @@ class FedTrans(Server):
         print("weights:{}".format(weights))
         sub_head_list = [] 
         for i in range(len(cluster.clients)):
-            sub_head_list.append(cluster.clients[i].sub_head)
+            sub_head_list.append(cluster.clients[i].sub_head)#sub_head:state_dict of sub_head
         weights = weights.squeeze(0)
         res = [client_emb_list,weights]
+        cluster.lvs = []
         for i in range(weights.size()[0]):
             w = weights[i]
-            c_dict = cluster.clients[i].state_dict()
-            c_dict_with_g, c_dict = self.w_add_parameters(c_dict, w, sub_head_list)
-            cluster.clients[i].add_sub(sd)
+            c_dict_with_g, c_dict = self.w_add_parameters(w, sub_head_list)
+            cluster.clients[i].add_sub(c_dict)
+            cluster.lvs.append(list(c_dict_with_g.values()))
             #client.head_temp = heads
         return res
 
@@ -217,6 +245,20 @@ class FedTrans(Server):
             for res_param, model_param in zip(res.parameters(), model_params):
                 res_param.data += model_param.data.clone() * w
         return res
+
+    def w_add_parameters(self, w, state_dicts):
+        sg = OrderedDict()
+        sd = OrderedDict()
+        assert(len(state_dicts)>0)
+        for w_i, sdi in zip(w, state_dicts):
+            for key in sdi.keys():
+                if key not in sg.keys():
+                    sg[key] = w_i * sdi[key]
+                    sd[key] = w_i.data * sdi[key]
+                else:
+                    sg[key] = sg[key] + w_i * sdi[key]
+                    sd[key] = sd[key] + w_i.data* sdi[key]
+        return sg, sd
 
     def receive_models(self):
         assert (len(self.selected_clients) > 0)
@@ -249,7 +291,7 @@ class FedTrans(Server):
     
     def add_parameters(self, w, client_model):
         for server_param, client_param in zip(self.global_model.base.parameters(), client_model.parameters()):
-            server_param.data += client_param.data.clone() * w
+            server_param.data = server_param.data + client_param.data.clone() * w
 
 class Attn_Model(nn.Module):
     def __init__(self, emb_dim=128, attn_dim=128, num_heads=8):
