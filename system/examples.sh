@@ -169,4 +169,4 @@ nohup python -u main.py -lbs 16 -nc 20 -jr 1 -nb 10 -data mnist -m dnn -algo Fed
 
 
 # ==============================================================train FedTrans
-# python main.py -data mnist -m cnn -algo FedTrans -gr 2000 -did 0 -go cnn -nc 20
+# python main.py -data mnist -m cnn -algo FedTrans -gr 2000 -did 0 -go cnn -nc 20 -ere 20
