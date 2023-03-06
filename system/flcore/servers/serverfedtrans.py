@@ -61,7 +61,6 @@ class FedTrans(Server):
         self.attn_loss = nn.MSELoss().to(self.device)
 
     def train(self):
-        torch.autograd.set_detect_anomaly(True)
         for i in range(self.global_rounds+1):
             gst_time = time.time()
             self.selected_clients = self.select_clients()
@@ -73,7 +72,10 @@ class FedTrans(Server):
             if i%self.eval_gap == 0:
                 print(f"\n-------------Round number: {i}-------------")
                 print("\nEvaluate global model")
+                start_time = time.time()
                 self.evaluate()
+                end_time = time.time()
+                print("evaluate time cost:{}s".format(end_time-start_time))
 
 
             start_time = time.time()
@@ -179,14 +181,20 @@ class FedTrans(Server):
         #loss = 0
         #total_train = 0
         for cluster in self.active_clusters:
+            if len(cluster.lvs)==0: ## len==0 means cluster only has one client, thus dont need to optimize attn params
+                continue
             delta_thetas = [c.sub_head for c in cluster.clients]
             self.attn_optimizer.zero_grad()
             for lv, delta_theta in zip(cluster.lvs, delta_thetas):
                 p_d = torch.autograd.grad(lv, self.param_list, list(delta_theta.values()), retain_graph=True)
                 for p, g in zip(self.param_list, p_d):
-                    p.grad = p.grad + g
+                    if p.grad is None:
+                        p.grad = g
+                    else:
+                        p.grad = p.grad + g
                 torch.nn.utils.clip_grad_norm_(self.param_list, 50)
-            self.attn_optimizer.step()
+            for param in self.param_list:
+                param.data = param.data - self.attn_learning_rate * param.grad
         #for client in self.selected_clients:
             #total_train += client.train_samples
         #for i, client in enumerate(self.selected_clients):
@@ -212,6 +220,7 @@ class FedTrans(Server):
         client_emb_list = [client.emb_vec.clone().reshape(1, -1) for client in cluster.clients]
 
         x = torch.cat(client_emb_list, dim=0).squeeze(1)
+        cluster.lvs = []
         if len(cluster.clients) == 1:
             return
         weights = self.intra_attn_model(x)
@@ -221,7 +230,6 @@ class FedTrans(Server):
             sub_head_list.append(cluster.clients[i].sub_head)#sub_head:state_dict of sub_head
         weights = weights.squeeze(0)
         res = [client_emb_list,weights]
-        cluster.lvs = []
         for i in range(weights.size()[0]):
             w = weights[i]
             c_dict_with_g, c_dict = self.w_add_parameters(w, sub_head_list)

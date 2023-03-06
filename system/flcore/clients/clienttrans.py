@@ -11,17 +11,13 @@ class clientTrans(Client):
     def __init__(self, args, id, train_samples, test_samples, **kwargs):
         super().__init__(args, id, train_samples, test_samples, **kwargs)
         
-        self.optimizer = torch.optim.SGD(self.model.base.parameters(), lr=self.learning_rate)
-        self.hoptimizer = torch.optim.SGD(self.model.head.parameters(), lr=self.learning_rate)
+        self.optimizer = torch.optim.SGD(self.model.parameters(), lr=self.learning_rate)
 
         self.cluster_id = None
         self.emb_vec = None
         self.prev_head = []
         self.psub = None
-        self.hlocal_steps = args.hlocal_steps
-
         self.loss = nn.CrossEntropyLoss()
-        self.atoptimizer = None
 
     def train(self):
         trainloader = self.load_train_data()

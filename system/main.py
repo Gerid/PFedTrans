@@ -343,7 +343,7 @@ if __name__ == "__main__":
     parser.add_argument('-ere', "--every_recluster_eps", type=int, default=10)
     parser.add_argument('-ed', "--emb_dim", type=int, default=512)
     parser.add_argument('-atdm', "--attn_dim", type=int, default=512)
-    parser.add_argument('-alr', "--attn_learning_rate", type=float, default=0.005)
+    parser.add_argument('-alr', "--attn_learning_rate", type=float, default=0.01)
     parser.add_argument('-ncl', "--num_cluster", type=int, default=10)
     parser.add_argument('-tk', "--tk_ratio", type=float, default=0.5)
     parser.add_argument('-hls', "--hlocal_steps", type=int, default=1)
