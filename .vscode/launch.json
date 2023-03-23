@@ -3,22 +3,37 @@
     "configurations": [
 
         {
-            "name": "Python: 当前文件",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
+            "cwd":"${cwd}/system",
             "console": "integratedTerminal",
-            "justMyCode": True,
-            "cwd": "c:\\Users\\fang\\Documents\\gitspace\\PFL-Non-IID\\system",
-            "args": [
+            "justMyCode": true,
+            /* "args": [
                 "-data", "mnist",
+                "-m", "cnn",
+                "-algo", "FedProx",
+                "-gr", "2000",
+
+                "-lbs",  "16", "-nc", "20", "-jr", "1", "-nb",   "10", "-mu", "0.001",
+                "-did", "0",
+                "-go", "cnn",
+                // "-nc", "20",
+                // "-ere", "20",
+            ] */ 
+            "args": [
+                "-data", "Cifar100",
                 "-m", "cnn",
                 "-algo", "FedTrans",
                 "-gr", "2000",
+                "-lbs",  "4",
                 "-did", "0",
                 "-go", "cnn",
+                "-nb", "100",
                 "-nc", "20",
-                "-ere", "20",
+                "-ere", "1",
+                "-al", "0.5",
             ]
         }
     ]
