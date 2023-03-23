@@ -32,6 +32,7 @@ class FedTrans(Server):
         # model embedding layer
         self.emb_dim = args.emb_dim
         self.attn_dim = args.attn_dim
+
         
 
         #head_params =  torch.cat([p.flatten() for p in self.global_model.head.parameters()])
@@ -44,6 +45,8 @@ class FedTrans(Server):
         self.attn_init()
         # TK -- ratio of cur head update (1-TK,TK)(agg_head, cur_head)
         #self.tk = args.tk_ratio
+        self.alpha = args.alpha
+        self.decay_rate = args.decay_rate
 
 
         print(f"\nJoin ratio / total clients: {self.join_ratio} / {self.num_clients}")
@@ -61,7 +64,9 @@ class FedTrans(Server):
         self.attn_loss = nn.MSELoss().to(self.device)
 
     def train(self):
+        self.cur_iter = 0
         for i in range(self.global_rounds+1):
+            self.cur_iter = i
             gst_time = time.time()
             self.selected_clients = self.select_clients()
             if(i==0):
@@ -230,10 +235,12 @@ class FedTrans(Server):
             sub_head_list.append(cluster.clients[i].sub_head)#sub_head:state_dict of sub_head
         weights = weights.squeeze(0)
         res = [client_emb_list,weights]
+        dc = self.alpha * self.decay_rate**(self.cur_iter/self.global_rounds)#update decay
         for i in range(weights.size()[0]):
             w = weights[i]
             c_dict_with_g, c_dict = self.w_add_parameters(w, sub_head_list)
-            cluster.clients[i].add_sub(c_dict)
+            cluster.clients[i].add_sub(cluster.clients[i].sub_head,decay=dc-1)
+            cluster.clients[i].add_sub(c_dict, decay=dc)
             cluster.lvs.append(list(c_dict_with_g.values()))
             #client.head_temp = heads
         return res

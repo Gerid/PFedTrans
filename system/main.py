@@ -328,7 +328,7 @@ if __name__ == "__main__":
     parser.add_argument('-alk', "--alphaK", type=float, default=1.0, 
                         help="lambda/sqrt(GLOABL-ITRATION) according to the paper")
     parser.add_argument('-sg', "--sigma", type=float, default=1.0)
-    # APFL
+    # APFL,FedTrans
     parser.add_argument('-al', "--alpha", type=float, default=1.0)
     # Ditto / FedRep
     parser.add_argument('-pls', "--plocal_steps", type=int, default=1)
@@ -347,6 +347,8 @@ if __name__ == "__main__":
     parser.add_argument('-ncl', "--num_cluster", type=int, default=10)
     parser.add_argument('-tk', "--tk_ratio", type=float, default=0.5)
     parser.add_argument('-hls', "--hlocal_steps", type=int, default=1)
+    parser.add_argument('-dc', "--decay_rate", type=int, default=0.1)
+    # parser.add_argument('-al', "--alpha", type=float, default=1.0)
 
 
     args = parser.parse_args()

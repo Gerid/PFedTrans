@@ -105,9 +105,9 @@ class clientTrans(Client):
         emb_g = emb_layer(self.psub)
         self.emb_vec = torch.cat([emb_m, emb_g])
 
-    def add_sub(self, sub):
+    def add_sub(self, sub, decay=1):
         for n, p in self.model.head.named_parameters():
-            p.data = p.data + sub[n].clone()
+            p.data = p.data + sub[n].clone() * decay
             
     
 
