@@ -5,6 +5,7 @@ import h5py
 import copy
 import time
 import random
+import wandb
 
 from utils.data_utils import read_client_data
 
@@ -29,6 +30,8 @@ class Server(object):
         self.time_threthold = args.time_threthold
         self.save_folder_name = args.save_folder_name
         self.top_cnt = 100
+        self.wandb_run = None
+        self.if_wandb= args.if_wandb
 
         self.clients = []
         self.selected_clients = []
@@ -48,6 +51,7 @@ class Server(object):
         self.client_drop_rate = args.client_drop_rate
         self.train_slow_rate = args.train_slow_rate
         self.send_slow_rate = args.send_slow_rate
+
 
     def set_clients(self, args, clientObj):
         for i, train_slow, send_slow in zip(range(self.num_clients), self.train_slow_clients, self.send_slow_clients):
@@ -220,6 +224,7 @@ class Server(object):
             loss.append(train_loss)
 
         print("Averaged Train Loss: {:.4f}".format(train_loss))
+
         print("Averaged Test Accurancy: {:.4f}".format(test_acc))
         if self.dataset[:5]!="Cifar":
             print("Averaged Test AUC: {:.4f}".format(test_auc))
@@ -227,6 +232,12 @@ class Server(object):
         print("Std Test Accurancy: {:.4f}".format(np.std(accs)))
         if self.dataset[:5]!="Cifar":
             print("Std Test AUC: {:.4f}".format(np.std(aucs)))
+        if self.if_wandb:
+            metrics = {"train_loss": train_loss,
+                               "test_acc": test_acc,
+                               "std_acc": np.std(accs)}
+            self.wandb_run.log(metrics)
+
 
     def print_(self, test_acc, test_auc, train_loss):
         print("Average Test Accurancy: {:.4f}".format(test_acc))

@@ -8,6 +8,7 @@ import warnings
 import numpy as np
 import torchvision
 import logging
+import wandb
 
 from flcore.servers.serveravg import FedAvg
 from flcore.servers.serverpFedMe import pFedMe
@@ -51,7 +52,7 @@ vocab_size = 98635
 max_len=200
 hidden_dim=32
 
-def run(args):
+def run(args, wandb_run=None):
 
     time_list = []
     reporter = MemReporter()
@@ -240,6 +241,10 @@ def run(args):
         else:
             raise NotImplementedError
 
+        if wandb_run is not None:
+            server.wandb_run = wandb_run
+
+
         server.train()
 
         time_list.append(time.time()-start)
@@ -349,6 +354,8 @@ if __name__ == "__main__":
     parser.add_argument('-hls', "--hlocal_steps", type=int, default=1)
     parser.add_argument('-dc', "--decay_rate", type=int, default=0.1)
     # parser.add_argument('-al', "--alpha", type=float, default=1.0)
+    #if wandb
+    parser.add_argument('-wandb', "--if_wandb", type=bool, default=False)
 
 
     args = parser.parse_args()
@@ -396,7 +403,21 @@ if __name__ == "__main__":
     #     on_trace_ready=torch.profiler.tensorboard_trace_handler('./log')
     #     ) as prof:
     # with torch.autograd.profiler.profile(profile_memory=True) as prof:
-    run(args)
+    if args.if_wandb:
+            wandb.login()
+            project_name = "fedtrans_exp"
+            wandb_run = wandb.init(project=project_name, 
+                             name=f"{args.dataset}_{args.algorithm}_{args.model}",
+                             config={
+                                "learning_rate": args.local_learning_rate,
+                                "number_of_client": args.num_clients,
+                                "epochs": args.global_rounds,
+                             })
+            run(args, wandb_run)
+            wandb_run.finish()
+    else:
+        run(args)
+         
 
     
     # print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=20))
