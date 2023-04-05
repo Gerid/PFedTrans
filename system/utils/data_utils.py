@@ -7,7 +7,7 @@ def read_data(dataset, idx, is_train=True):
     if is_train:
         train_data_dir = os.path.join('../dataset', dataset, 'train/')
 
-        train_data_dir = train_data_dir.replace("/",'\\')
+        #train_data_dir = train_data_dir.replace("/",'\\')
 
         train_file = train_data_dir + str(idx) + '.npz'
         with open(train_file, 'rb') as f:
