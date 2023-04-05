@@ -90,6 +90,11 @@ def run(args, wandb_run=None):
                 args.model = DNN(1*28*28, 100, num_classes=args.num_classes).to(args.device)
             elif args.dataset == "Cifar10" or args.dataset == "Cifar100":
                 args.model = DNN(3*32*32, 100, num_classes=args.num_classes).to(args.device)
+                if args.pre_train:
+                    model_path = os.path.join("models", args.dataset)
+                    model_path = os.path.join(model_path, args.algorithm + "_server" + ".pt")
+                    print("loading prev model {}".format(model_path))
+                    args.model = torch.load(model_path).to(args.device)
             else:
                 args.model = DNN(60, 20, num_classes=args.num_classes).to(args.device)
         
@@ -353,6 +358,7 @@ if __name__ == "__main__":
     parser.add_argument('-tk', "--tk_ratio", type=float, default=0.5)
     parser.add_argument('-hls', "--hlocal_steps", type=int, default=1)
     parser.add_argument('-dc', "--decay_rate", type=int, default=0.1)
+    parser.add_argument('-pretrain', "--pre_train", type=bool, default=False)
     # parser.add_argument('-al', "--alpha", type=float, default=1.0)
     #if wandb
     parser.add_argument('-wandb', "--if_wandb", type=bool, default=False)

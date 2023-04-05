@@ -1,4 +1,5 @@
 import torch
+import os
 from torch import nn
 import copy
 import time
@@ -6,9 +7,11 @@ import numpy as np
 import math
 import random
 
+
 from collections import OrderedDict
 from flcore.clients.clienttrans import clientTrans,Cluster, weight_flatten
 from flcore.servers.serverbase import Server
+from flcore.trainmodel.models import *
 from utils.kmeans import kmeans
 from threading import Thread
 
@@ -48,6 +51,8 @@ class FedTrans(Server):
         self.alpha = args.alpha
         self.decay_rate = args.decay_rate
 
+        self.pre_train = args.pre_train
+
 
         print(f"\nJoin ratio / total clients: {self.join_ratio} / {self.num_clients}")
         print("Finished creating server and clients.")
@@ -65,6 +70,14 @@ class FedTrans(Server):
 
     def train(self):
         self.cur_iter = 0
+        if self.pre_train:
+            model_path = os.path.join("models", self.dataset)
+            model_path = os.path.join(model_path, self.algorithm + "_server" + ".pt")
+            print("loading prev model {}".format(model_path))
+            model = torch.load(model_path).to(self.device)
+            head = copy.deepcopy(model.fc)
+            model.fc = nn.Identity()
+            self.global_model = LocalModel(model, head)
         for i in range(self.global_rounds+1):
             self.cur_iter = i
             gst_time = time.time()
@@ -150,7 +163,16 @@ class FedTrans(Server):
         print(max(self.rs_test_acc))
 
         self.save_results()
+        self.save_attn_model()
         self.save_global_model()
+
+    def save_attn_model(self):
+        model_path = os.path.join("models", self.dataset)
+        if not os.path.exists(model_path):
+            os.makedirs(model_path)
+        model_path = os.path.join(model_path, self.algorithm + "_server_attn" + ".pt")
+        attn_models = {'emb_layer':self.emb_layer, 'intra_attn_model':self.intra_attn_model}
+        torch.save(attn_models, model_path)
 
     def send_models(self, init_head=True):
         assert (len(self.clients) > 0)
