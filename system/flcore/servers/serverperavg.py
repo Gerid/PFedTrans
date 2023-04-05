@@ -65,3 +65,5 @@ class PerAvg(Server):
         
         self.rs_test_acc.append(test_acc)
         print("Average Test Accurancy: {:.4f}".format(test_acc))
+        metrics = {"test_acc": test_acc}
+        self.wandb_run.log(metrics)
