@@ -1,0 +1,17 @@
+2023-04-04 15:37:09,941 INFO    MainThread:37120 [wandb_setup.py:_flush():68] Configure stats pid to 37120
+2023-04-04 15:37:09,941 INFO    MainThread:37120 [wandb_setup.py:_flush():68] Loading settings from C:\Users\MSI\.config\wandb\settings
+2023-04-04 15:37:09,941 INFO    MainThread:37120 [wandb_setup.py:_flush():68] Loading settings from D:\Projects\PFedTrans\system\wandb\settings
+2023-04-04 15:37:09,941 INFO    MainThread:37120 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True'}
+2023-04-04 15:37:09,941 INFO    MainThread:37120 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program': 'main.py'}
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:_log_setup():492] Logging user logs to D:\Projects\PFedTrans\system\wandb\run-20230404_153709-1gr4zklp\logs\debug.log
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:_log_setup():493] Logging internal logs to D:\Projects\PFedTrans\system\wandb\run-20230404_153709-1gr4zklp\logs\debug-internal.log
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:init():532] calling init triggers
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:init():538] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.005, 'number_of_client': 100, 'epochs': 200}
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:init():588] starting backend
+2023-04-04 15:37:09,942 INFO    MainThread:37120 [wandb_init.py:init():592] setting up manager
+2023-04-04 15:37:09,944 INFO    MainThread:37120 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=spawn, using: spawn
+2023-04-04 15:37:09,947 INFO    MainThread:37120 [wandb_init.py:init():599] backend started and connected
+2023-04-04 15:37:09,948 INFO    MainThread:37120 [wandb_init.py:init():687] updated telemetry
+2023-04-04 15:37:09,949 INFO    MainThread:37120 [wandb_init.py:init():727] communicating run to backend with 60.0 second timeout
+2023-04-04 15:37:10,661 INFO    MainThread:37120 [wandb_run.py:_on_init():2134] communicating current version

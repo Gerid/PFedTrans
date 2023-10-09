@@ -96,7 +96,7 @@ class clientTrans(Client):
             psub.append(sub)
         self.psub = torch.concat(psub, dim=0)
 
-    def emb(self, emb_layer:nn.modules):
+    def emb(self, emb_layer:nn.modules, use_dp=False):
         params = []
         for p in self.phead.parameters():
             params.append(p.flatten())
@@ -104,6 +104,16 @@ class clientTrans(Client):
         emb_m = emb_layer(params) 
         emb_g = emb_layer(self.psub)
         self.emb_vec = torch.cat([emb_m, emb_g])
+    
+    def DP_emb(self, emb_layer:nn.modules):
+        params = []
+        for p in self.phead.parameters():
+            params.append(p.flatten())
+        params = torch.cat(params)
+        emb_m = emb_layer(params) 
+        emb_g = emb_layer(self.psub)
+        self.emb_vec = torch.cat([emb_m, emb_g])
+    
 
     def add_sub(self, sub, decay=1):
         for n, p in self.model.head.named_parameters():

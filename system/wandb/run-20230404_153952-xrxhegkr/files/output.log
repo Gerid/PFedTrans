@@ -1,0 +1,862 @@
+============= Running time: 0th =============
+Creating server and clients ...
+DNN(
+  (fc1): Linear(in_features=3072, out_features=100, bias=True)
+  (fc): Linear(in_features=100, out_features=10, bias=True)
+)
+Join ratio / total clients: 1.0 / 100
+Finished creating server and clients.
+-------------Round number: 0-------------
+Evaluate global model
+Averaged Train Loss: 2.3057
+Averaged Test Accurancy: 0.1084
+Std Test Accurancy: 0.1760
+-------------Round number: 1-------------
+Evaluate global model
+Averaged Train Loss: 1.2263
+Averaged Test Accurancy: 0.6594
+Std Test Accurancy: 0.1488
+-------------Round number: 2-------------
+Evaluate global model
+Averaged Train Loss: 0.9721
+Averaged Test Accurancy: 0.7145
+Std Test Accurancy: 0.1022
+-------------Round number: 3-------------
+Evaluate global model
+Averaged Train Loss: 0.8292
+Averaged Test Accurancy: 0.7360
+Std Test Accurancy: 0.0972
+-------------Round number: 4-------------
+Evaluate global model
+Averaged Train Loss: 0.7315
+Averaged Test Accurancy: 0.7504
+Std Test Accurancy: 0.0894
+-------------Round number: 5-------------
+Evaluate global model
+Averaged Train Loss: 0.6598
+Averaged Test Accurancy: 0.7602
+Std Test Accurancy: 0.0845
+-------------Round number: 6-------------
+Evaluate global model
+Averaged Train Loss: 0.6055
+Averaged Test Accurancy: 0.7659
+Std Test Accurancy: 0.0818
+-------------Round number: 7-------------
+Evaluate global model
+Averaged Train Loss: 0.5633
+Averaged Test Accurancy: 0.7726
+Std Test Accurancy: 0.0766
+-------------Round number: 8-------------
+Evaluate global model
+Averaged Train Loss: 0.5276
+Averaged Test Accurancy: 0.7768
+Std Test Accurancy: 0.0753
+-------------Round number: 9-------------
+Evaluate global model
+Averaged Train Loss: 0.5016
+Averaged Test Accurancy: 0.7786
+Std Test Accurancy: 0.0752
+-------------Round number: 10-------------
+Evaluate global model
+Averaged Train Loss: 0.4716
+Averaged Test Accurancy: 0.7826
+Std Test Accurancy: 0.0766
+-------------Round number: 11-------------
+Evaluate global model
+Averaged Train Loss: 0.4501
+Averaged Test Accurancy: 0.7856
+Std Test Accurancy: 0.0721
+-------------Round number: 12-------------
+Evaluate global model
+Averaged Train Loss: 0.4282
+Averaged Test Accurancy: 0.7860
+Std Test Accurancy: 0.0731
+-------------Round number: 13-------------
+Evaluate global model
+Averaged Train Loss: 0.4132
+Averaged Test Accurancy: 0.7846
+Std Test Accurancy: 0.0747
+-------------Round number: 14-------------
+Evaluate global model
+Averaged Train Loss: 0.3892
+Averaged Test Accurancy: 0.7891
+Std Test Accurancy: 0.0698
+-------------Round number: 15-------------
+Evaluate global model
+Averaged Train Loss: 0.3745
+Averaged Test Accurancy: 0.7921
+Std Test Accurancy: 0.0712
+-------------Round number: 16-------------
+Evaluate global model
+Averaged Train Loss: 0.3600
+Averaged Test Accurancy: 0.7922
+Std Test Accurancy: 0.0721
+-------------Round number: 17-------------
+Evaluate global model
+Averaged Train Loss: 0.3470
+Averaged Test Accurancy: 0.7943
+Std Test Accurancy: 0.0709
+-------------Round number: 18-------------
+Evaluate global model
+Averaged Train Loss: 0.3323
+Averaged Test Accurancy: 0.7919
+Std Test Accurancy: 0.0684
+-------------Round number: 19-------------
+Evaluate global model
+Averaged Train Loss: 0.3206
+Averaged Test Accurancy: 0.7963
+Std Test Accurancy: 0.0669
+-------------Round number: 20-------------
+Evaluate global model
+Averaged Train Loss: 0.3061
+Averaged Test Accurancy: 0.7969
+Std Test Accurancy: 0.0657
+-------------Round number: 21-------------
+Evaluate global model
+Averaged Train Loss: 0.2961
+Averaged Test Accurancy: 0.7952
+Std Test Accurancy: 0.0654
+-------------Round number: 22-------------
+Evaluate global model
+Averaged Train Loss: 0.2870
+Averaged Test Accurancy: 0.7965
+Std Test Accurancy: 0.0661
+-------------Round number: 23-------------
+Evaluate global model
+Averaged Train Loss: 0.2749
+Averaged Test Accurancy: 0.7997
+Std Test Accurancy: 0.0657
+-------------Round number: 24-------------
+Evaluate global model
+Averaged Train Loss: 0.2669
+Averaged Test Accurancy: 0.7979
+Std Test Accurancy: 0.0643
+-------------Round number: 25-------------
+Evaluate global model
+Averaged Train Loss: 0.2586
+Averaged Test Accurancy: 0.7973
+Std Test Accurancy: 0.0646
+-------------Round number: 26-------------
+Evaluate global model
+Averaged Train Loss: 0.2463
+Averaged Test Accurancy: 0.7979
+Std Test Accurancy: 0.0642
+-------------Round number: 27-------------
+Evaluate global model
+Averaged Train Loss: 0.2376
+Averaged Test Accurancy: 0.8009
+Std Test Accurancy: 0.0605
+-------------Round number: 28-------------
+Evaluate global model
+Averaged Train Loss: 0.2290
+Averaged Test Accurancy: 0.8006
+Std Test Accurancy: 0.0634
+-------------Round number: 29-------------
+Evaluate global model
+Averaged Train Loss: 0.2214
+Averaged Test Accurancy: 0.8016
+Std Test Accurancy: 0.0625
+-------------Round number: 30-------------
+Evaluate global model
+Averaged Train Loss: 0.2145
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0607
+-------------Round number: 31-------------
+Evaluate global model
+Averaged Train Loss: 0.2107
+Averaged Test Accurancy: 0.7981
+Std Test Accurancy: 0.0629
+-------------Round number: 32-------------
+Evaluate global model
+Averaged Train Loss: 0.1995
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0599
+-------------Round number: 33-------------
+Evaluate global model
+Averaged Train Loss: 0.1938
+Averaged Test Accurancy: 0.8014
+Std Test Accurancy: 0.0615
+-------------Round number: 34-------------
+Evaluate global model
+Averaged Train Loss: 0.1899
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0601
+-------------Round number: 35-------------
+Evaluate global model
+Averaged Train Loss: 0.1808
+Averaged Test Accurancy: 0.8013
+Std Test Accurancy: 0.0612
+-------------Round number: 36-------------
+Evaluate global model
+Averaged Train Loss: 0.1737
+Averaged Test Accurancy: 0.8016
+Std Test Accurancy: 0.0601
+-------------Round number: 37-------------
+Evaluate global model
+Averaged Train Loss: 0.1711
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0607
+-------------Round number: 38-------------
+Evaluate global model
+Averaged Train Loss: 0.1618
+Averaged Test Accurancy: 0.8037
+Std Test Accurancy: 0.0596
+-------------Round number: 39-------------
+Evaluate global model
+Averaged Train Loss: 0.1569
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0594
+-------------Round number: 40-------------
+Evaluate global model
+Averaged Train Loss: 0.1538
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0589
+-------------Round number: 41-------------
+Evaluate global model
+Averaged Train Loss: 0.1516
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0604
+-------------Round number: 42-------------
+Evaluate global model
+Averaged Train Loss: 0.1424
+Averaged Test Accurancy: 0.8030
+Std Test Accurancy: 0.0605
+-------------Round number: 43-------------
+Evaluate global model
+Averaged Train Loss: 0.1415
+Averaged Test Accurancy: 0.8030
+Std Test Accurancy: 0.0611
+-------------Round number: 44-------------
+Evaluate global model
+Averaged Train Loss: 0.1352
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0610
+-------------Round number: 45-------------
+Evaluate global model
+Averaged Train Loss: 0.1296
+Averaged Test Accurancy: 0.8029
+Std Test Accurancy: 0.0606
+-------------Round number: 46-------------
+Evaluate global model
+Averaged Train Loss: 0.1244
+Averaged Test Accurancy: 0.8025
+Std Test Accurancy: 0.0597
+-------------Round number: 47-------------
+Evaluate global model
+Averaged Train Loss: 0.1219
+Averaged Test Accurancy: 0.8029
+Std Test Accurancy: 0.0598
+-------------Round number: 48-------------
+Evaluate global model
+Averaged Train Loss: 0.1178
+Averaged Test Accurancy: 0.8037
+Std Test Accurancy: 0.0601
+-------------Round number: 49-------------
+Evaluate global model
+Averaged Train Loss: 0.1144
+Averaged Test Accurancy: 0.8016
+Std Test Accurancy: 0.0595
+-------------Round number: 50-------------
+Evaluate global model
+Averaged Train Loss: 0.1100
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0600
+-------------Round number: 51-------------
+Evaluate global model
+Averaged Train Loss: 0.1065
+Averaged Test Accurancy: 0.8027
+Std Test Accurancy: 0.0608
+-------------Round number: 52-------------
+Evaluate global model
+Averaged Train Loss: 0.1040
+Averaged Test Accurancy: 0.8035
+Std Test Accurancy: 0.0587
+-------------Round number: 53-------------
+Evaluate global model
+Averaged Train Loss: 0.1008
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0584
+-------------Round number: 54-------------
+Evaluate global model
+Averaged Train Loss: 0.0979
+Averaged Test Accurancy: 0.8011
+Std Test Accurancy: 0.0581
+-------------Round number: 55-------------
+Evaluate global model
+Averaged Train Loss: 0.0948
+Averaged Test Accurancy: 0.8040
+Std Test Accurancy: 0.0590
+-------------Round number: 56-------------
+Evaluate global model
+Averaged Train Loss: 0.0919
+Averaged Test Accurancy: 0.8027
+Std Test Accurancy: 0.0596
+-------------Round number: 57-------------
+Evaluate global model
+Averaged Train Loss: 0.0894
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0585
+-------------Round number: 58-------------
+Evaluate global model
+Averaged Train Loss: 0.0865
+Averaged Test Accurancy: 0.8030
+Std Test Accurancy: 0.0595
+-------------Round number: 59-------------
+Evaluate global model
+Averaged Train Loss: 0.0844
+Averaged Test Accurancy: 0.8026
+Std Test Accurancy: 0.0594
+-------------Round number: 60-------------
+Evaluate global model
+Averaged Train Loss: 0.0827
+Averaged Test Accurancy: 0.8021
+Std Test Accurancy: 0.0592
+-------------Round number: 61-------------
+Evaluate global model
+Averaged Train Loss: 0.0802
+Averaged Test Accurancy: 0.8021
+Std Test Accurancy: 0.0600
+-------------Round number: 62-------------
+Evaluate global model
+Averaged Train Loss: 0.0776
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0585
+-------------Round number: 63-------------
+Evaluate global model
+Averaged Train Loss: 0.0759
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0592
+-------------Round number: 64-------------
+Evaluate global model
+Averaged Train Loss: 0.0732
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0610
+-------------Round number: 65-------------
+Evaluate global model
+Averaged Train Loss: 0.0715
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0593
+-------------Round number: 66-------------
+Evaluate global model
+Averaged Train Loss: 0.0700
+Averaged Test Accurancy: 0.8010
+Std Test Accurancy: 0.0586
+-------------Round number: 67-------------
+Evaluate global model
+Averaged Train Loss: 0.0685
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0583
+-------------Round number: 68-------------
+Evaluate global model
+Averaged Train Loss: 0.0665
+Averaged Test Accurancy: 0.8014
+Std Test Accurancy: 0.0593
+-------------Round number: 69-------------
+Evaluate global model
+Averaged Train Loss: 0.0642
+Averaged Test Accurancy: 0.8019
+Std Test Accurancy: 0.0590
+-------------Round number: 70-------------
+Evaluate global model
+Averaged Train Loss: 0.0625
+Averaged Test Accurancy: 0.8026
+Std Test Accurancy: 0.0586
+-------------Round number: 71-------------
+Evaluate global model
+Averaged Train Loss: 0.0623
+Averaged Test Accurancy: 0.8015
+Std Test Accurancy: 0.0586
+-------------Round number: 72-------------
+Evaluate global model
+Averaged Train Loss: 0.0597
+Averaged Test Accurancy: 0.8018
+Std Test Accurancy: 0.0588
+-------------Round number: 73-------------
+Evaluate global model
+Averaged Train Loss: 0.0583
+Averaged Test Accurancy: 0.8017
+Std Test Accurancy: 0.0600
+-------------Round number: 74-------------
+Evaluate global model
+Averaged Train Loss: 0.0567
+Averaged Test Accurancy: 0.8021
+Std Test Accurancy: 0.0586
+-------------Round number: 75-------------
+Evaluate global model
+Averaged Train Loss: 0.0556
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0579
+-------------Round number: 76-------------
+Evaluate global model
+Averaged Train Loss: 0.0551
+Averaged Test Accurancy: 0.8003
+Std Test Accurancy: 0.0600
+-------------Round number: 77-------------
+Evaluate global model
+Averaged Train Loss: 0.0527
+Averaged Test Accurancy: 0.8013
+Std Test Accurancy: 0.0585
+-------------Round number: 78-------------
+Evaluate global model
+Averaged Train Loss: 0.0521
+Averaged Test Accurancy: 0.8018
+Std Test Accurancy: 0.0578
+-------------Round number: 79-------------
+Evaluate global model
+Averaged Train Loss: 0.0505
+Averaged Test Accurancy: 0.8014
+Std Test Accurancy: 0.0582
+-------------Round number: 80-------------
+Evaluate global model
+Averaged Train Loss: 0.0499
+Averaged Test Accurancy: 0.8006
+Std Test Accurancy: 0.0589
+-------------Round number: 81-------------
+Evaluate global model
+Averaged Train Loss: 0.0480
+Averaged Test Accurancy: 0.8015
+Std Test Accurancy: 0.0595
+-------------Round number: 82-------------
+Evaluate global model
+Averaged Train Loss: 0.0469
+Averaged Test Accurancy: 0.8016
+Std Test Accurancy: 0.0586
+-------------Round number: 83-------------
+Evaluate global model
+Averaged Train Loss: 0.0460
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0587
+-------------Round number: 84-------------
+Evaluate global model
+Averaged Train Loss: 0.0448
+Averaged Test Accurancy: 0.8016
+Std Test Accurancy: 0.0593
+-------------Round number: 85-------------
+Evaluate global model
+Averaged Train Loss: 0.0440
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0581
+-------------Round number: 86-------------
+Evaluate global model
+Averaged Train Loss: 0.0429
+Averaged Test Accurancy: 0.8024
+Std Test Accurancy: 0.0581
+-------------Round number: 87-------------
+Evaluate global model
+Averaged Train Loss: 0.0421
+Averaged Test Accurancy: 0.8009
+Std Test Accurancy: 0.0582
+-------------Round number: 88-------------
+Evaluate global model
+Averaged Train Loss: 0.0422
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0589
+-------------Round number: 89-------------
+Evaluate global model
+Averaged Train Loss: 0.0402
+Averaged Test Accurancy: 0.8028
+Std Test Accurancy: 0.0592
+-------------Round number: 90-------------
+Evaluate global model
+Averaged Train Loss: 0.0403
+Averaged Test Accurancy: 0.8007
+Std Test Accurancy: 0.0588
+-------------Round number: 91-------------
+Evaluate global model
+Averaged Train Loss: 0.0387
+Averaged Test Accurancy: 0.8020
+Std Test Accurancy: 0.0592
+-------------Round number: 92-------------
+Evaluate global model
+Averaged Train Loss: 0.0380
+Averaged Test Accurancy: 0.8002
+Std Test Accurancy: 0.0584
+-------------Round number: 93-------------
+Evaluate global model
+Averaged Train Loss: 0.0372
+Averaged Test Accurancy: 0.8008
+Std Test Accurancy: 0.0583
+-------------Round number: 94-------------
+Evaluate global model
+Averaged Train Loss: 0.0363
+Averaged Test Accurancy: 0.8008
+Std Test Accurancy: 0.0595
+-------------Round number: 95-------------
+Evaluate global model
+Averaged Train Loss: 0.0358
+Averaged Test Accurancy: 0.8011
+Std Test Accurancy: 0.0589
+-------------Round number: 96-------------
+Evaluate global model
+Averaged Train Loss: 0.0353
+Averaged Test Accurancy: 0.8010
+Std Test Accurancy: 0.0578
+-------------Round number: 97-------------
+Evaluate global model
+Averaged Train Loss: 0.0344
+Averaged Test Accurancy: 0.8011
+Std Test Accurancy: 0.0592
+-------------Round number: 98-------------
+Evaluate global model
+Averaged Train Loss: 0.0338
+Averaged Test Accurancy: 0.8007
+Std Test Accurancy: 0.0586
+-------------Round number: 99-------------
+Evaluate global model
+Averaged Train Loss: 0.0332
+Averaged Test Accurancy: 0.8011
+Std Test Accurancy: 0.0596
+-------------Round number: 100-------------
+Evaluate global model
+Averaged Train Loss: 0.0328
+Averaged Test Accurancy: 0.8007
+Std Test Accurancy: 0.0582
+-------------Round number: 101-------------
+Evaluate global model
+Averaged Train Loss: 0.0318
+Averaged Test Accurancy: 0.8002
+Std Test Accurancy: 0.0587
+-------------Round number: 102-------------
+Evaluate global model
+Averaged Train Loss: 0.0313
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0593
+-------------Round number: 103-------------
+Evaluate global model
+Averaged Train Loss: 0.0308
+Averaged Test Accurancy: 0.8002
+Std Test Accurancy: 0.0595
+-------------Round number: 104-------------
+Evaluate global model
+Averaged Train Loss: 0.0303
+Averaged Test Accurancy: 0.7997
+Std Test Accurancy: 0.0593
+-------------Round number: 105-------------
+Evaluate global model
+Averaged Train Loss: 0.0297
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0590
+-------------Round number: 106-------------
+Evaluate global model
+Averaged Train Loss: 0.0292
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0605
+-------------Round number: 107-------------
+Evaluate global model
+Averaged Train Loss: 0.0286
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0605
+-------------Round number: 108-------------
+Evaluate global model
+Averaged Train Loss: 0.0282
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0594
+-------------Round number: 109-------------
+Evaluate global model
+Averaged Train Loss: 0.0278
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0596
+-------------Round number: 110-------------
+Evaluate global model
+Averaged Train Loss: 0.0273
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0599
+-------------Round number: 111-------------
+Evaluate global model
+Averaged Train Loss: 0.0268
+Averaged Test Accurancy: 0.8004
+Std Test Accurancy: 0.0592
+-------------Round number: 112-------------
+Evaluate global model
+Averaged Train Loss: 0.0262
+Averaged Test Accurancy: 0.8004
+Std Test Accurancy: 0.0598
+-------------Round number: 113-------------
+Evaluate global model
+Averaged Train Loss: 0.0260
+Averaged Test Accurancy: 0.8007
+Std Test Accurancy: 0.0593
+-------------Round number: 114-------------
+Evaluate global model
+Averaged Train Loss: 0.0254
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0594
+-------------Round number: 115-------------
+Evaluate global model
+Averaged Train Loss: 0.0252
+Averaged Test Accurancy: 0.7998
+Std Test Accurancy: 0.0596
+-------------Round number: 116-------------
+Evaluate global model
+Averaged Train Loss: 0.0247
+Averaged Test Accurancy: 0.8000
+Std Test Accurancy: 0.0597
+-------------Round number: 117-------------
+Evaluate global model
+Averaged Train Loss: 0.0242
+Averaged Test Accurancy: 0.8004
+Std Test Accurancy: 0.0595
+-------------Round number: 118-------------
+Evaluate global model
+Averaged Train Loss: 0.0239
+Averaged Test Accurancy: 0.8007
+Std Test Accurancy: 0.0600
+-------------Round number: 119-------------
+Evaluate global model
+Averaged Train Loss: 0.0235
+Averaged Test Accurancy: 0.7998
+Std Test Accurancy: 0.0596
+-------------Round number: 120-------------
+Evaluate global model
+Averaged Train Loss: 0.0231
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0596
+-------------Round number: 121-------------
+Evaluate global model
+Averaged Train Loss: 0.0229
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0592
+-------------Round number: 122-------------
+Evaluate global model
+Averaged Train Loss: 0.0224
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0594
+-------------Round number: 123-------------
+Evaluate global model
+Averaged Train Loss: 0.0221
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0594
+-------------Round number: 124-------------
+Evaluate global model
+Averaged Train Loss: 0.0218
+Averaged Test Accurancy: 0.7999
+Std Test Accurancy: 0.0594
+-------------Round number: 125-------------
+Evaluate global model
+Averaged Train Loss: 0.0215
+Averaged Test Accurancy: 0.8005
+Std Test Accurancy: 0.0597
+-------------Round number: 126-------------
+Evaluate global model
+Averaged Train Loss: 0.0211
+Averaged Test Accurancy: 0.8003
+Std Test Accurancy: 0.0599
+-------------Round number: 127-------------
+Evaluate global model
+Averaged Train Loss: 0.0208
+Averaged Test Accurancy: 0.8000
+Std Test Accurancy: 0.0599
+-------------Round number: 128-------------
+Evaluate global model
+Averaged Train Loss: 0.0206
+Averaged Test Accurancy: 0.7993
+Std Test Accurancy: 0.0594
+-------------Round number: 129-------------
+Evaluate global model
+Averaged Train Loss: 0.0203
+Averaged Test Accurancy: 0.8002
+Std Test Accurancy: 0.0607
+-------------Round number: 130-------------
+Evaluate global model
+Averaged Train Loss: 0.0200
+Averaged Test Accurancy: 0.7994
+Std Test Accurancy: 0.0598
+-------------Round number: 131-------------
+Evaluate global model
+Averaged Train Loss: 0.0198
+Averaged Test Accurancy: 0.7996
+Std Test Accurancy: 0.0599
+-------------Round number: 132-------------
+Evaluate global model
+Averaged Train Loss: 0.0195
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0592
+-------------Round number: 133-------------
+Evaluate global model
+Averaged Train Loss: 0.0193
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0599
+-------------Round number: 134-------------
+Evaluate global model
+Averaged Train Loss: 0.0189
+Averaged Test Accurancy: 0.8001
+Std Test Accurancy: 0.0602
+-------------Round number: 135-------------
+Evaluate global model
+Averaged Train Loss: 0.0187
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0595
+-------------Round number: 136-------------
+Evaluate global model
+Averaged Train Loss: 0.0184
+Averaged Test Accurancy: 0.7992
+Std Test Accurancy: 0.0598
+-------------Round number: 137-------------
+Evaluate global model
+Averaged Train Loss: 0.0181
+Averaged Test Accurancy: 0.7989
+Std Test Accurancy: 0.0599
+-------------Round number: 138-------------
+Evaluate global model
+Averaged Train Loss: 0.0179
+Averaged Test Accurancy: 0.8002
+Std Test Accurancy: 0.0596
+-------------Round number: 139-------------
+Evaluate global model
+Averaged Train Loss: 0.0177
+Averaged Test Accurancy: 0.7997
+Std Test Accurancy: 0.0596
+-------------Round number: 140-------------
+Evaluate global model
+Averaged Train Loss: 0.0174
+Averaged Test Accurancy: 0.8000
+Std Test Accurancy: 0.0606
+-------------Round number: 141-------------
+Evaluate global model
+Averaged Train Loss: 0.0172
+Averaged Test Accurancy: 0.7992
+Std Test Accurancy: 0.0597
+-------------Round number: 142-------------
+Evaluate global model
+Averaged Train Loss: 0.0170
+Averaged Test Accurancy: 0.7993
+Std Test Accurancy: 0.0589
+-------------Round number: 143-------------
+Evaluate global model
+Averaged Train Loss: 0.0168
+Averaged Test Accurancy: 0.7997
+Std Test Accurancy: 0.0593
+-------------Round number: 144-------------
+Evaluate global model
+Averaged Train Loss: 0.0166
+Averaged Test Accurancy: 0.7996
+Std Test Accurancy: 0.0600
+-------------Round number: 145-------------
+Evaluate global model
+Averaged Train Loss: 0.0391
+Averaged Test Accurancy: 0.7954
+Std Test Accurancy: 0.0597
+-------------Round number: 146-------------
+Evaluate global model
+Averaged Train Loss: 0.0163
+Averaged Test Accurancy: 0.7994
+Std Test Accurancy: 0.0591
+-------------Round number: 147-------------
+Evaluate global model
+Averaged Train Loss: 0.0160
+Averaged Test Accurancy: 0.7992
+Std Test Accurancy: 0.0595
+-------------Round number: 148-------------
+Evaluate global model
+Averaged Train Loss: 0.0158
+Averaged Test Accurancy: 0.7997
+Std Test Accurancy: 0.0589
+-------------Round number: 149-------------
+Evaluate global model
+Averaged Train Loss: 0.0156
+Averaged Test Accurancy: 0.7991
+Std Test Accurancy: 0.0600
+-------------Round number: 150-------------
+Evaluate global model
+Averaged Train Loss: 0.0154
+Averaged Test Accurancy: 0.7991
+Std Test Accurancy: 0.0602
+-------------Round number: 151-------------
+Evaluate global model
+Averaged Train Loss: 0.0153
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0601
+-------------Round number: 152-------------
+Evaluate global model
+Averaged Train Loss: 0.0151
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0595
+-------------Round number: 153-------------
+Evaluate global model
+Averaged Train Loss: 0.0148
+Averaged Test Accurancy: 0.7989
+Std Test Accurancy: 0.0601
+-------------Round number: 154-------------
+Evaluate global model
+Averaged Train Loss: 0.0147
+Averaged Test Accurancy: 0.7989
+Std Test Accurancy: 0.0591
+-------------Round number: 155-------------
+Evaluate global model
+Averaged Train Loss: 0.0146
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0602
+-------------Round number: 156-------------
+Evaluate global model
+Averaged Train Loss: 0.0144
+Averaged Test Accurancy: 0.7989
+Std Test Accurancy: 0.0594
+-------------Round number: 157-------------
+Evaluate global model
+Averaged Train Loss: 0.0142
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0602
+-------------Round number: 158-------------
+Evaluate global model
+Averaged Train Loss: 0.0141
+Averaged Test Accurancy: 0.7988
+Std Test Accurancy: 0.0605
+-------------Round number: 159-------------
+Evaluate global model
+Averaged Train Loss: 0.0139
+Averaged Test Accurancy: 0.7988
+Std Test Accurancy: 0.0599
+-------------Round number: 160-------------
+Evaluate global model
+Averaged Train Loss: 0.0138
+Averaged Test Accurancy: 0.7986
+Std Test Accurancy: 0.0605
+-------------Round number: 161-------------
+Evaluate global model
+Averaged Train Loss: 0.0136
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0605
+-------------Round number: 162-------------
+Evaluate global model
+Averaged Train Loss: 0.0134
+Averaged Test Accurancy: 0.7988
+Std Test Accurancy: 0.0595
+-------------Round number: 163-------------
+Evaluate global model
+Averaged Train Loss: 0.0133
+Averaged Test Accurancy: 0.7989
+Std Test Accurancy: 0.0592
+-------------Round number: 164-------------
+Evaluate global model
+Averaged Train Loss: 0.0131
+Averaged Test Accurancy: 0.7995
+Std Test Accurancy: 0.0593
+-------------Round number: 165-------------
+Evaluate global model
+Averaged Train Loss: 0.0130
+Averaged Test Accurancy: 0.7990
+Std Test Accurancy: 0.0588
+-------------Round number: 166-------------
+Evaluate global model
+Averaged Train Loss: 0.0129
+Averaged Test Accurancy: 0.7987
+Std Test Accurancy: 0.0597
+-------------Round number: 167-------------
+Evaluate global model
+Averaged Train Loss: 0.0127
+Averaged Test Accurancy: 0.7984
+Std Test Accurancy: 0.0600
+-------------Round number: 168-------------
+Evaluate global model
+Averaged Train Loss: 0.0126
+Averaged Test Accurancy: 0.7982
+Std Test Accurancy: 0.0597
+-------------Round number: 169-------------
+Evaluate global model
+Averaged Train Loss: 0.0126
+Averaged Test Accurancy: 0.7990
+Std Test Accurancy: 0.0601
+-------------Round number: 170-------------
+Evaluate global model
+Averaged Train Loss: 0.0124
+Averaged Test Accurancy: 0.7987

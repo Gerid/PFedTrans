@@ -1,0 +1,8 @@
+2023-04-05 04:41:13,581 INFO    StreamThr :29644 [internal.py:wandb_internal():87] W&B internal server running at pid: 29644, started at: 2023-04-05 04:41:13.581132
+2023-04-05 04:41:13,582 DEBUG   HandlerThread:29644 [handler.py:handle_request():144] handle_request: status
+2023-04-05 04:41:13,583 INFO    WriterThread:29644 [datastore.py:open_for_write():85] open: D:\Projects\PFedTrans\system\wandb\run-20230405_044113-ld88zfb1\run-ld88zfb1.wandb
+2023-04-05 04:41:13,586 DEBUG   SenderThread:29644 [sender.py:send():336] send: header
+2023-04-05 04:41:13,587 DEBUG   SenderThread:29644 [sender.py:send():336] send: run
+2023-04-05 04:41:14,611 WARNING StreamThr :29644 [internal.py:is_dead():415] Internal process exiting, parent pid 44408 disappeared
+2023-04-05 04:41:14,611 ERROR   StreamThr :29644 [internal.py:wandb_internal():153] Internal process shutdown.
+2023-04-05 04:41:15,605 INFO    MainThread:29644 [internal.py:handle_exit():77] Internal process exited

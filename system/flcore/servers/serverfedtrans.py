@@ -102,7 +102,11 @@ class FedTrans(Server):
                     #client.prev_head = weight_flatten(client.model.head)
                 client.train()
                 #client.cur_head = copy.deepcopy(client.model.head)
-                client.emb(self.emb_layer)
+
+                #self.use_dp: bool default is False, indicating do not use dp in client 
+                client.emb(self.emb_layer, self.use_dp)
+
+
             end_time = time.time()
             print("clients training time cost:{}s".format(end_time-start_time))
 
@@ -346,7 +350,13 @@ class Attn_Model(nn.Module):
         q = self.query(x)
         k = self.key(x)
 
-        scores = torch.matmul(q, k.transpose(-2, -1)) 
+        q_norm = torch.norm(q, dim=-1, keepdim=True)
+        k_norm = torch.norm(k, dim=-1, keepdim=True)
+
+        # 计算余弦相似度
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (q_norm * k_norm.transpose(-2, -1))
+
+
 
         #scaled coef removed since we want to diff weight matrix entries
         #scores = torch.matmul(q, k.transpose(-2, -1)) / (self.attn_dim ** 0.5)

@@ -1,0 +1,1191 @@
+============= Running time: 0th =============
+Creating server and clients ...
+FedAvgCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(5, 5), stride=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 64, kernel_size=(5, 5), stride=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+  )
+  (fc1): Sequential(
+    (0): Linear(in_features=1024, out_features=512, bias=True)
+    (1): ReLU(inplace=True)
+  )
+  (fc): Linear(in_features=512, out_features=10, bias=True)
+)
+Join ratio / total clients: 1.0 / 20
+Finished creating server and clients.
+-------------Round number: 0-------------
+Evaluate global model
+Averaged Train Loss: 2.3127
+Averaged Test Accurancy: 0.0607
+Averaged Test AUC: 0.4337
+Std Test Accurancy: 0.0671
+Std Test AUC: 0.1842
+evaluate time cost:10.426841497421265s
+[running kmeans]: 2it [00:00, 166.51it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:11.777952194213867s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+form_cluster time cost:0.025023221969604492s
+weights:tensor([[0.4996, 0.5004],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5001, 0.4999],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3336, 0.3329, 0.3335],
+        [0.3337, 0.3329, 0.3335],
+        [0.3337, 0.3329, 0.3335]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2498, 0.2502, 0.2500, 0.2500],
+        [0.2498, 0.2502, 0.2500, 0.2500],
+        [0.2498, 0.2502, 0.2500, 0.2500],
+        [0.2498, 0.2502, 0.2500, 0.2500]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3336, 0.3332, 0.3332],
+        [0.3336, 0.3332, 0.3332],
+        [0.3336, 0.3332, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02602386474609375s
+iter time cost:22.301881551742554s
+-------------Round number: 1-------------
+Evaluate global model
+Averaged Train Loss: 0.8042
+Averaged Test Accurancy: 0.8031
+Averaged Test AUC: 0.9761
+Std Test Accurancy: 0.2020
+Std Test AUC: 0.0278
+evaluate time cost:6.006811141967773s
+clients training time cost:11.551609754562378s
+attn_optimize time cost:0.03603172302246094s
+weights:tensor([[0.4998, 0.5002],
+        [0.4998, 0.5002]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4998, 0.5002]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4998, 0.5002]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3336, 0.3328, 0.3336],
+        [0.3336, 0.3328, 0.3336],
+        [0.3336, 0.3328, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2501, 0.2500, 0.2498, 0.2502],
+        [0.2500, 0.2500, 0.2498, 0.2502],
+        [0.2501, 0.2500, 0.2498, 0.2502],
+        [0.2501, 0.2500, 0.2498, 0.2501]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3334, 0.3334],
+        [0.3332, 0.3334, 0.3334],
+        [0.3332, 0.3334, 0.3334]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02101874351501465s
+iter time cost:17.65751075744629s
+-------------Round number: 2-------------
+Evaluate global model
+Averaged Train Loss: 0.3874
+Averaged Test Accurancy: 0.9075
+Averaged Test AUC: 0.9913
+Std Test Accurancy: 0.1251
+Std Test AUC: 0.0137
+evaluate time cost:6.185829162597656s
+clients training time cost:11.04982590675354s
+attn_optimize time cost:0.033030033111572266s
+weights:tensor([[0.5001, 0.4999],
+        [0.5000, 0.5000]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3336, 0.3328, 0.3336],
+        [0.3335, 0.3329, 0.3336],
+        [0.3336, 0.3328, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2500, 0.2499, 0.2498, 0.2503],
+        [0.2500, 0.2499, 0.2498, 0.2503],
+        [0.2500, 0.2499, 0.2498, 0.2503],
+        [0.2501, 0.2499, 0.2498, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3331, 0.3334, 0.3335],
+        [0.3331, 0.3334, 0.3335],
+        [0.3331, 0.3334, 0.3335]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021019458770751953s
+iter time cost:17.33274221420288s
+-------------Round number: 3-------------
+Evaluate global model
+Averaged Train Loss: 0.2184
+Averaged Test Accurancy: 0.9460
+Averaged Test AUC: 0.9954
+Std Test Accurancy: 0.0681
+Std Test AUC: 0.0072
+evaluate time cost:6.351119756698608s
+clients training time cost:10.854981899261475s
+attn_optimize time cost:0.03102898597717285s
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4996, 0.5004],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3336, 0.3328, 0.3336],
+        [0.3335, 0.3329, 0.3336],
+        [0.3335, 0.3328, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2500, 0.2498, 0.2498, 0.2503],
+        [0.2499, 0.2499, 0.2498, 0.2504],
+        [0.2500, 0.2499, 0.2498, 0.2503],
+        [0.2501, 0.2499, 0.2497, 0.2503]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3331, 0.3334, 0.3335],
+        [0.3331, 0.3334, 0.3335],
+        [0.3330, 0.3335, 0.3335]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02202010154724121s
+iter time cost:17.30018711090088s
+-------------Round number: 4-------------
+Evaluate global model
+Averaged Train Loss: 0.1507
+Averaged Test Accurancy: 0.9596
+Averaged Test AUC: 0.9967
+Std Test Accurancy: 0.0447
+Std Test AUC: 0.0046
+evaluate time cost:6.222096920013428s
+clients training time cost:10.76207947731018s
+attn_optimize time cost:0.03403306007385254s
+weights:tensor([[0.5004, 0.4996],
+        [0.5003, 0.4997]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4996, 0.5004],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3335, 0.3329, 0.3336],
+        [0.3335, 0.3329, 0.3336],
+        [0.3335, 0.3329, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2501, 0.2498, 0.2498, 0.2503],
+        [0.2500, 0.2499, 0.2497, 0.2504],
+        [0.2501, 0.2499, 0.2497, 0.2503],
+        [0.2502, 0.2499, 0.2497, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3335, 0.3335],
+        [0.3330, 0.3335, 0.3335],
+        [0.3330, 0.3335, 0.3335]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021018505096435547s
+iter time cost:17.078383922576904s
+-------------Round number: 5-------------
+Evaluate global model
+Averaged Train Loss: 0.1130
+Averaged Test Accurancy: 0.9678
+Averaged Test AUC: 0.9976
+Std Test Accurancy: 0.0318
+Std Test AUC: 0.0030
+evaluate time cost:6.3758509159088135s
+[running kmeans]: 2it [00:00, 399.67it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:10.845127820968628s
+attn_optimize time cost:0.033030033111572266s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.2499, 0.2503, 0.2495, 0.2503],
+        [0.2499, 0.2503, 0.2496, 0.2502],
+        [0.2498, 0.2504, 0.2497, 0.2501],
+        [0.2499, 0.2504, 0.2494, 0.2503]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2501, 0.2498, 0.2498, 0.2503],
+        [0.2501, 0.2498, 0.2497, 0.2504],
+        [0.2501, 0.2498, 0.2497, 0.2503],
+        [0.2503, 0.2499, 0.2496, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3329, 0.3333, 0.3338],
+        [0.3329, 0.3333, 0.3338]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5004, 0.4996],
+        [0.5004, 0.4996]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4999, 0.5001],
+        [0.4999, 0.5001]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.019576549530029297s
+iter time cost:17.331637620925903s
+-------------Round number: 6-------------
+Evaluate global model
+Averaged Train Loss: 0.0950
+Averaged Test Accurancy: 0.9710
+Averaged Test AUC: 0.9979
+Std Test Accurancy: 0.0289
+Std Test AUC: 0.0026
+evaluate time cost:6.261408090591431s
+clients training time cost:10.779687404632568s
+attn_optimize time cost:0.030027151107788086s
+weights:tensor([[0.2499, 0.2504, 0.2495, 0.2503],
+        [0.2499, 0.2504, 0.2496, 0.2502],
+        [0.2498, 0.2504, 0.2497, 0.2501],
+        [0.2499, 0.2504, 0.2494, 0.2503]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2501, 0.2498, 0.2497, 0.2503],
+        [0.2501, 0.2498, 0.2497, 0.2504],
+        [0.2502, 0.2498, 0.2497, 0.2503],
+        [0.2503, 0.2499, 0.2496, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3331, 0.3333, 0.3336],
+        [0.3330, 0.3333, 0.3338],
+        [0.3329, 0.3332, 0.3338]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5005, 0.4995],
+        [0.5005, 0.4995]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4999, 0.5001],
+        [0.4999, 0.5001]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.01901721954345703s
+iter time cost:17.132177114486694s
+-------------Round number: 7-------------
+Evaluate global model
+Averaged Train Loss: 0.0822
+Averaged Test Accurancy: 0.9757
+Averaged Test AUC: 0.9982
+Std Test Accurancy: 0.0231
+Std Test AUC: 0.0022
+evaluate time cost:6.212130069732666s
+clients training time cost:10.720475912094116s
+attn_optimize time cost:0.03202986717224121s
+weights:tensor([[0.2499, 0.2504, 0.2495, 0.2503],
+        [0.2499, 0.2504, 0.2496, 0.2502],
+        [0.2498, 0.2505, 0.2497, 0.2501],
+        [0.2499, 0.2504, 0.2494, 0.2504]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2502, 0.2498, 0.2497, 0.2503],
+        [0.2501, 0.2498, 0.2496, 0.2504],
+        [0.2502, 0.2498, 0.2496, 0.2503],
+        [0.2504, 0.2498, 0.2496, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3331, 0.3332, 0.3336],
+        [0.3330, 0.3332, 0.3338],
+        [0.3330, 0.3332, 0.3338]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5006, 0.4994],
+        [0.5005, 0.4995]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4999, 0.5001],
+        [0.4999, 0.5001]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001786231994629s
+iter time cost:17.026691198349s
+-------------Round number: 8-------------
+Evaluate global model
+Averaged Train Loss: 0.0737
+Averaged Test Accurancy: 0.9776
+Averaged Test AUC: 0.9984
+Std Test Accurancy: 0.0205
+Std Test AUC: 0.0019
+evaluate time cost:6.313715219497681s
+clients training time cost:11.073090076446533s
+attn_optimize time cost:0.03202986717224121s
+weights:tensor([[0.2499, 0.2504, 0.2495, 0.2503],
+        [0.2499, 0.2504, 0.2496, 0.2501],
+        [0.2498, 0.2505, 0.2497, 0.2501],
+        [0.2499, 0.2504, 0.2494, 0.2504]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2502, 0.2498, 0.2497, 0.2503],
+        [0.2502, 0.2498, 0.2496, 0.2504],
+        [0.2503, 0.2498, 0.2496, 0.2503],
+        [0.2504, 0.2498, 0.2495, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3332, 0.3336],
+        [0.3331, 0.3332, 0.3338],
+        [0.3331, 0.3331, 0.3338]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5006, 0.4994],
+        [0.5006, 0.4994]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4999, 0.5001],
+        [0.4998, 0.5002]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.020018577575683594s
+iter time cost:17.47989058494568s
+-------------Round number: 9-------------
+Evaluate global model
+Averaged Train Loss: 0.0655
+Averaged Test Accurancy: 0.9795
+Averaged Test AUC: 0.9986
+Std Test Accurancy: 0.0195
+Std Test AUC: 0.0017
+evaluate time cost:6.78866982460022s
+clients training time cost:10.782217741012573s
+attn_optimize time cost:0.0320286750793457s
+weights:tensor([[0.2499, 0.2504, 0.2495, 0.2502],
+        [0.2499, 0.2504, 0.2496, 0.2501],
+        [0.2498, 0.2505, 0.2497, 0.2500],
+        [0.2499, 0.2504, 0.2493, 0.2503]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2503, 0.2498, 0.2497, 0.2503],
+        [0.2502, 0.2498, 0.2496, 0.2504],
+        [0.2503, 0.2498, 0.2496, 0.2503],
+        [0.2505, 0.2498, 0.2495, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3332, 0.3336],
+        [0.3331, 0.3331, 0.3338],
+        [0.3331, 0.3331, 0.3338]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5007, 0.4993],
+        [0.5006, 0.4994]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4999, 0.5001],
+        [0.4998, 0.5002]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021019935607910156s
+iter time cost:17.66397190093994s
+-------------Round number: 10-------------
+Evaluate global model
+Averaged Train Loss: 0.0590
+Averaged Test Accurancy: 0.9819
+Averaged Test AUC: 0.9987
+Std Test Accurancy: 0.0165
+Std Test AUC: 0.0016
+evaluate time cost:6.344845771789551s
+[running kmeans]: 2it [00:00, 399.61it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:11.05221700668335s
+attn_optimize time cost:0.033028602600097656s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3339, 0.3331, 0.3330],
+        [0.3339, 0.3332, 0.3329],
+        [0.3339, 0.3332, 0.3329]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5004, 0.4996],
+        [0.5003, 0.4997]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2497, 0.2507, 0.2496, 0.2500],
+        [0.2497, 0.2507, 0.2497, 0.2499],
+        [0.2497, 0.2507, 0.2498, 0.2499],
+        [0.2497, 0.2507, 0.2495, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3328, 0.3333, 0.3339],
+        [0.3329, 0.3334, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02202010154724121s
+iter time cost:17.512165784835815s
+-------------Round number: 11-------------
+Evaluate global model
+Averaged Train Loss: 0.0537
+Averaged Test Accurancy: 0.9829
+Averaged Test AUC: 0.9988
+Std Test Accurancy: 0.0164
+Std Test AUC: 0.0014
+evaluate time cost:6.343657732009888s
+clients training time cost:10.946281909942627s
+attn_optimize time cost:0.0320277214050293s
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3339, 0.3331, 0.3330],
+        [0.3339, 0.3332, 0.3329],
+        [0.3340, 0.3331, 0.3329]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5003, 0.4997],
+        [0.5003, 0.4997]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2497, 0.2507, 0.2496, 0.2500],
+        [0.2497, 0.2507, 0.2497, 0.2499],
+        [0.2497, 0.2507, 0.2498, 0.2498],
+        [0.2497, 0.2507, 0.2495, 0.2501]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5008, 0.4992],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3328, 0.3333, 0.3339],
+        [0.3329, 0.3335, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02502274513244629s
+iter time cost:17.38802695274353s
+-------------Round number: 12-------------
+Evaluate global model
+Averaged Train Loss: 0.0498
+Averaged Test Accurancy: 0.9841
+Averaged Test AUC: 0.9989
+Std Test Accurancy: 0.0144
+Std Test AUC: 0.0013
+evaluate time cost:6.45935320854187s
+clients training time cost:10.95193362236023s
+attn_optimize time cost:0.0320277214050293s
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3339, 0.3331, 0.3330],
+        [0.3340, 0.3332, 0.3329],
+        [0.3340, 0.3331, 0.3329]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5003, 0.4997],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2497, 0.2508, 0.2496, 0.2500],
+        [0.2497, 0.2508, 0.2497, 0.2499],
+        [0.2496, 0.2508, 0.2498, 0.2498],
+        [0.2497, 0.2508, 0.2495, 0.2501]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3328, 0.3333, 0.3339],
+        [0.3329, 0.3334, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02302074432373047s
+iter time cost:17.50937581062317s
+-------------Round number: 13-------------
+Evaluate global model
+Averaged Train Loss: 0.0470
+Averaged Test Accurancy: 0.9845
+Averaged Test AUC: 0.9989
+Std Test Accurancy: 0.0145
+Std Test AUC: 0.0014
+evaluate time cost:6.398352861404419s
+clients training time cost:10.809759616851807s
+attn_optimize time cost:0.032027482986450195s
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3340, 0.3330, 0.3330],
+        [0.3340, 0.3331, 0.3329],
+        [0.3341, 0.3331, 0.3328]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5003, 0.4997],
+        [0.5003, 0.4997]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2496, 0.2508, 0.2496, 0.2500],
+        [0.2496, 0.2508, 0.2497, 0.2498],
+        [0.2496, 0.2508, 0.2498, 0.2498],
+        [0.2496, 0.2508, 0.2495, 0.2501]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3327, 0.3333, 0.3339],
+        [0.3329, 0.3334, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.022020816802978516s
+iter time cost:17.303828954696655s
+-------------Round number: 14-------------
+Evaluate global model
+Averaged Train Loss: 0.0434
+Averaged Test Accurancy: 0.9853
+Averaged Test AUC: 0.9990
+Std Test Accurancy: 0.0131
+Std Test AUC: 0.0013
+evaluate time cost:6.269357681274414s
+clients training time cost:10.810513257980347s
+attn_optimize time cost:0.032029151916503906s
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3340, 0.3330, 0.3330],
+        [0.3340, 0.3331, 0.3329],
+        [0.3341, 0.3331, 0.3328]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5003, 0.4997],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2496, 0.2508, 0.2496, 0.2500],
+        [0.2496, 0.2509, 0.2497, 0.2498],
+        [0.2496, 0.2508, 0.2498, 0.2498],
+        [0.2496, 0.2508, 0.2495, 0.2501]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3330, 0.3333, 0.3337],
+        [0.3327, 0.3333, 0.3340],
+        [0.3329, 0.3335, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02202010154724121s
+iter time cost:17.175956964492798s
+-------------Round number: 15-------------
+Evaluate global model
+Averaged Train Loss: 0.0402
+Averaged Test Accurancy: 0.9860
+Averaged Test AUC: 0.9990
+Std Test Accurancy: 0.0123
+Std Test AUC: 0.0012
+evaluate time cost:6.262821912765503s
+[running kmeans]: 3it [00:00, 374.67it/s, center_shift=0.000000, iteration=3, tol=0.000100]
+clients training time cost:10.825127124786377s
+attn_optimize time cost:0.031028032302856445s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+device is :cuda
+weights:tensor([[0.1663, 0.1666, 0.1671, 0.1666, 0.1664, 0.1669],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1668, 0.1668],
+        [0.1664, 0.1666, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1663, 0.1666, 0.1671, 0.1666, 0.1665, 0.1669],
+        [0.1663, 0.1667, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1667, 0.1669]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3342, 0.3327, 0.3331],
+        [0.3340, 0.3328, 0.3332],
+        [0.3339, 0.3327, 0.3333]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3326, 0.3343, 0.3331],
+        [0.3327, 0.3344, 0.3329],
+        [0.3326, 0.3342, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.019594907760620117s
+iter time cost:17.198627710342407s
+-------------Round number: 16-------------
+Evaluate global model
+Averaged Train Loss: 0.0385
+Averaged Test Accurancy: 0.9864
+Averaged Test AUC: 0.9991
+Std Test Accurancy: 0.0123
+Std Test AUC: 0.0011
+evaluate time cost:6.137721300125122s
+clients training time cost:10.677875995635986s
+attn_optimize time cost:0.03302931785583496s
+weights:tensor([[0.1663, 0.1666, 0.1671, 0.1666, 0.1664, 0.1669],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1668, 0.1668],
+        [0.1664, 0.1666, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1663, 0.1666, 0.1671, 0.1666, 0.1665, 0.1669],
+        [0.1663, 0.1667, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1667, 0.1669]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3342, 0.3327, 0.3330],
+        [0.3341, 0.3328, 0.3332],
+        [0.3340, 0.3327, 0.3333]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3326, 0.3343, 0.3331],
+        [0.3327, 0.3344, 0.3329],
+        [0.3326, 0.3342, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001810073852539s
+iter time cost:16.910684823989868s
+-------------Round number: 17-------------
+Evaluate global model
+Averaged Train Loss: 0.0361
+Averaged Test Accurancy: 0.9870
+Averaged Test AUC: 0.9991
+Std Test Accurancy: 0.0123
+Std Test AUC: 0.0011
+evaluate time cost:6.218825817108154s
+clients training time cost:10.624627113342285s
+attn_optimize time cost:0.032029151916503906s
+weights:tensor([[0.1663, 0.1666, 0.1671, 0.1666, 0.1664, 0.1669],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1668, 0.1668],
+        [0.1664, 0.1666, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1663, 0.1666, 0.1671, 0.1666, 0.1665, 0.1669],
+        [0.1663, 0.1667, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1661, 0.1667, 0.1672, 0.1665, 0.1667, 0.1669]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3343, 0.3327, 0.3330],
+        [0.3341, 0.3328, 0.3332],
+        [0.3340, 0.3327, 0.3333]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3326, 0.3343, 0.3331],
+        [0.3327, 0.3344, 0.3329],
+        [0.3325, 0.3343, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021018266677856445s
+iter time cost:16.939697742462158s
+-------------Round number: 18-------------
+Evaluate global model
+Averaged Train Loss: 0.0344
+Averaged Test Accurancy: 0.9875
+Averaged Test AUC: 0.9991
+Std Test Accurancy: 0.0121
+Std Test AUC: 0.0011
+evaluate time cost:6.203752279281616s
+clients training time cost:10.760680913925171s
+attn_optimize time cost:0.0320286750793457s
+weights:tensor([[0.1663, 0.1666, 0.1671, 0.1667, 0.1664, 0.1669],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1668, 0.1668],
+        [0.1664, 0.1666, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1663, 0.1666, 0.1671, 0.1666, 0.1665, 0.1669],
+        [0.1663, 0.1667, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1661, 0.1667, 0.1672, 0.1665, 0.1667, 0.1669]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3343, 0.3327, 0.3330],
+        [0.3341, 0.3327, 0.3332],
+        [0.3340, 0.3327, 0.3333]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3326, 0.3344, 0.3331],
+        [0.3326, 0.3345, 0.3329],
+        [0.3325, 0.3343, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.020017385482788086s
+iter time cost:17.056516647338867s
+-------------Round number: 19-------------
+Evaluate global model
+Averaged Train Loss: 0.0325
+Averaged Test Accurancy: 0.9878
+Averaged Test AUC: 0.9991
+Std Test Accurancy: 0.0114
+Std Test AUC: 0.0011
+evaluate time cost:6.156098127365112s
+clients training time cost:10.597135782241821s
+attn_optimize time cost:0.031027555465698242s
+weights:tensor([[0.1663, 0.1666, 0.1671, 0.1667, 0.1664, 0.1669],
+        [0.1661, 0.1667, 0.1671, 0.1665, 0.1668, 0.1668],
+        [0.1664, 0.1666, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1663, 0.1666, 0.1671, 0.1666, 0.1665, 0.1669],
+        [0.1663, 0.1667, 0.1671, 0.1665, 0.1666, 0.1668],
+        [0.1661, 0.1667, 0.1672, 0.1665, 0.1667, 0.1669]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5002, 0.4998],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3343, 0.3327, 0.3330],
+        [0.3341, 0.3327, 0.3331],
+        [0.3340, 0.3327, 0.3333]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3326, 0.3344, 0.3330],
+        [0.3326, 0.3345, 0.3329],
+        [0.3325, 0.3343, 0.3332]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001810073852539s
+iter time cost:16.84531855583191s
+-------------Round number: 20-------------
+Evaluate global model
+Averaged Train Loss: 0.0307
+Averaged Test Accurancy: 0.9882
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0106
+Std Test AUC: 0.0011
+evaluate time cost:6.282398462295532s
+[running kmeans]: 2it [00:00, 399.72it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:11.586368799209595s
+attn_optimize time cost:0.03302955627441406s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.5004, 0.4996],
+        [0.5001, 0.4999]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2497, 0.2497, 0.2501],
+        [0.2506, 0.2497, 0.2495, 0.2503],
+        [0.2506, 0.2497, 0.2494, 0.2504],
+        [0.2508, 0.2496, 0.2494, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1999, 0.2000, 0.1996, 0.2001, 0.2004],
+        [0.1999, 0.1998, 0.1999, 0.2001, 0.2003],
+        [0.2000, 0.2000, 0.1998, 0.2001, 0.2001],
+        [0.1999, 0.1999, 0.1997, 0.2001, 0.2004],
+        [0.1998, 0.1999, 0.1997, 0.2000, 0.2005]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4986, 0.5014],
+        [0.4986, 0.5014]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.03303050994873047s
+iter time cost:18.01390027999878s
+-------------Round number: 21-------------
+Evaluate global model
+Averaged Train Loss: 0.0290
+Averaged Test Accurancy: 0.9888
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0092
+Std Test AUC: 0.0011
+evaluate time cost:6.040476560592651s
+clients training time cost:11.187296152114868s
+attn_optimize time cost:0.032029151916503906s
+weights:tensor([[0.5004, 0.4996],
+        [0.5001, 0.4999]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2506, 0.2497, 0.2497, 0.2501],
+        [0.2506, 0.2497, 0.2495, 0.2503],
+        [0.2506, 0.2497, 0.2494, 0.2503],
+        [0.2508, 0.2496, 0.2494, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1999, 0.2000, 0.1996, 0.2001, 0.2004],
+        [0.1999, 0.1998, 0.1999, 0.2001, 0.2003],
+        [0.2000, 0.2000, 0.1998, 0.2001, 0.2001],
+        [0.1999, 0.1999, 0.1997, 0.2001, 0.2004],
+        [0.1998, 0.1999, 0.1997, 0.2000, 0.2005]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4986, 0.5014],
+        [0.4985, 0.5015]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.020018577575683594s
+iter time cost:17.326862335205078s
+-------------Round number: 22-------------
+Evaluate global model
+Averaged Train Loss: 0.0284
+Averaged Test Accurancy: 0.9885
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0106
+Std Test AUC: 0.0010
+evaluate time cost:6.066664934158325s
+clients training time cost:10.94246530532837s
+attn_optimize time cost:0.03403067588806152s
+weights:tensor([[0.5004, 0.4996],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2506, 0.2497, 0.2497, 0.2501],
+        [0.2506, 0.2497, 0.2495, 0.2502],
+        [0.2506, 0.2497, 0.2494, 0.2503],
+        [0.2508, 0.2496, 0.2494, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1999, 0.2000, 0.1996, 0.2001, 0.2004],
+        [0.1999, 0.1998, 0.1999, 0.2001, 0.2003],
+        [0.2000, 0.2000, 0.1998, 0.2001, 0.2001],
+        [0.1999, 0.1999, 0.1997, 0.2001, 0.2004],
+        [0.1998, 0.1999, 0.1997, 0.2000, 0.2005]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4986, 0.5014],
+        [0.4985, 0.5015]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.024021387100219727s
+iter time cost:17.109222888946533s
+-------------Round number: 23-------------
+Evaluate global model
+Averaged Train Loss: 0.0268
+Averaged Test Accurancy: 0.9891
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0101
+Std Test AUC: 0.0011
+evaluate time cost:5.901088714599609s
+clients training time cost:10.74409818649292s
+attn_optimize time cost:0.03102707862854004s
+weights:tensor([[0.5004, 0.4996],
+        [0.5001, 0.4999]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2506, 0.2497, 0.2497, 0.2500],
+        [0.2506, 0.2497, 0.2495, 0.2502],
+        [0.2506, 0.2497, 0.2494, 0.2503],
+        [0.2508, 0.2496, 0.2494, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1999, 0.2000, 0.1996, 0.2001, 0.2004],
+        [0.1999, 0.1998, 0.1999, 0.2001, 0.2004],
+        [0.2000, 0.2000, 0.1998, 0.2001, 0.2001],
+        [0.1999, 0.1999, 0.1996, 0.2001, 0.2004],
+        [0.1998, 0.1999, 0.1997, 0.2000, 0.2005]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4985, 0.5015],
+        [0.4985, 0.5015]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02101898193359375s
+iter time cost:16.73927092552185s
+-------------Round number: 24-------------
+Evaluate global model
+Averaged Train Loss: 0.0259
+Averaged Test Accurancy: 0.9895
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0094
+Std Test AUC: 0.0010
+evaluate time cost:6.136599063873291s
+clients training time cost:10.926751613616943s
+attn_optimize time cost:0.033025503158569336s
+weights:tensor([[0.5004, 0.4996],
+        [0.5002, 0.4998]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4997, 0.5003],
+        [0.4996, 0.5004]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2506, 0.2497, 0.2497, 0.2500],
+        [0.2506, 0.2497, 0.2495, 0.2502],
+        [0.2506, 0.2497, 0.2494, 0.2503],
+        [0.2509, 0.2496, 0.2494, 0.2502]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1999, 0.2000, 0.1996, 0.2001, 0.2004],
+        [0.1999, 0.1998, 0.1999, 0.2001, 0.2004],
+        [0.2000, 0.2000, 0.1998, 0.2001, 0.2001],
+        [0.1999, 0.1999, 0.1996, 0.2001, 0.2004],
+        [0.1998, 0.1999, 0.1997, 0.2000, 0.2005]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4985, 0.5015],
+        [0.4985, 0.5015]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021018266677856445s
+iter time cost:17.157432317733765s
+-------------Round number: 25-------------
+Evaluate global model
+Averaged Train Loss: 0.0247
+Averaged Test Accurancy: 0.9898
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0091
+Std Test AUC: 0.0010
+evaluate time cost:6.130496025085449s
+[running kmeans]: 2it [00:00, 376.71it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:10.926579713821411s
+attn_optimize time cost:0.03111100196838379s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.2495, 0.2510, 0.2497, 0.2498],
+        [0.2495, 0.2510, 0.2498, 0.2496],
+        [0.2496, 0.2511, 0.2496, 0.2498],
+        [0.2494, 0.2509, 0.2498, 0.2499]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5014, 0.4986],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2496, 0.2496, 0.2503],
+        [0.2506, 0.2492, 0.2498, 0.2504],
+        [0.2505, 0.2495, 0.2497, 0.2503],
+        [0.2506, 0.2494, 0.2494, 0.2506]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3335, 0.3327, 0.3339],
+        [0.3334, 0.3327, 0.3339],
+        [0.3332, 0.3328, 0.3339]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001786231994629s
+iter time cost:17.168566465377808s
+-------------Round number: 26-------------
+Evaluate global model
+Averaged Train Loss: 0.0235
+Averaged Test Accurancy: 0.9899
+Averaged Test AUC: 0.9992
+Std Test Accurancy: 0.0092
+Std Test AUC: 0.0010
+evaluate time cost:6.115087509155273s
+clients training time cost:10.80057954788208s
+attn_optimize time cost:0.03102707862854004s
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2498],
+        [0.2495, 0.2510, 0.2499, 0.2496],
+        [0.2495, 0.2511, 0.2496, 0.2498],
+        [0.2494, 0.2509, 0.2498, 0.2499]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5014, 0.4986],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2496, 0.2496, 0.2503],
+        [0.2506, 0.2492, 0.2498, 0.2504],
+        [0.2505, 0.2495, 0.2497, 0.2503],
+        [0.2506, 0.2494, 0.2494, 0.2506]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3335, 0.3327, 0.3339],
+        [0.3334, 0.3327, 0.3339],
+        [0.3332, 0.3328, 0.3339]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.019206762313842773s
+iter time cost:17.007941246032715s
+-------------Round number: 27-------------
+Evaluate global model
+Averaged Train Loss: 0.0227
+Averaged Test Accurancy: 0.9904
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0083
+Std Test AUC: 0.0010
+evaluate time cost:6.050869941711426s
+clients training time cost:10.761245727539062s
+attn_optimize time cost:0.031029939651489258s
+weights:tensor([[0.2495, 0.2510, 0.2497, 0.2497],
+        [0.2495, 0.2510, 0.2498, 0.2496],
+        [0.2495, 0.2511, 0.2496, 0.2498],
+        [0.2494, 0.2509, 0.2498, 0.2499]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5014, 0.4986],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2496, 0.2496, 0.2503],
+        [0.2506, 0.2492, 0.2498, 0.2504],
+        [0.2505, 0.2495, 0.2497, 0.2503],
+        [0.2506, 0.2494, 0.2494, 0.2506]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3335, 0.3327, 0.3339],
+        [0.3334, 0.3327, 0.3339],
+        [0.3332, 0.3328, 0.3339]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.020018815994262695s
+iter time cost:16.902199268341064s
+-------------Round number: 28-------------
+Evaluate global model
+Averaged Train Loss: 0.0216
+Averaged Test Accurancy: 0.9908
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0074
+Std Test AUC: 0.0009
+evaluate time cost:6.162459850311279s
+clients training time cost:10.756426095962524s
+attn_optimize time cost:0.029025793075561523s
+weights:tensor([[0.2495, 0.2510, 0.2497, 0.2497],
+        [0.2495, 0.2511, 0.2499, 0.2496],
+        [0.2495, 0.2511, 0.2495, 0.2498],
+        [0.2494, 0.2509, 0.2498, 0.2499]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5014, 0.4986],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2496, 0.2496, 0.2503],
+        [0.2506, 0.2492, 0.2498, 0.2504],
+        [0.2505, 0.2495, 0.2497, 0.2504],
+        [0.2506, 0.2494, 0.2494, 0.2506]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3335, 0.3326, 0.3339],
+        [0.3334, 0.3327, 0.3340],
+        [0.3332, 0.3328, 0.3340]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001810073852539s
+iter time cost:17.008967638015747s
+-------------Round number: 29-------------
+Evaluate global model
+Averaged Train Loss: 0.0209
+Averaged Test Accurancy: 0.9913
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0071
+Std Test AUC: 0.0009
+evaluate time cost:6.171269178390503s
+clients training time cost:10.757135391235352s
+attn_optimize time cost:0.030027151107788086s
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2497],
+        [0.2495, 0.2511, 0.2499, 0.2496],
+        [0.2495, 0.2511, 0.2496, 0.2498],
+        [0.2494, 0.2509, 0.2498, 0.2499]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5014, 0.4986],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4998, 0.5002],
+        [0.4997, 0.5003]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2505, 0.2496, 0.2496, 0.2503],
+        [0.2506, 0.2492, 0.2498, 0.2504],
+        [0.2505, 0.2495, 0.2497, 0.2504],
+        [0.2506, 0.2494, 0.2494, 0.2506]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3334, 0.3327, 0.3339],
+        [0.3333, 0.3327, 0.3340],
+        [0.3332, 0.3328, 0.3340]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001786231994629s
+iter time cost:17.022484064102173s
+-------------Round number: 30-------------
+Evaluate global model
+Averaged Train Loss: 0.0202
+Averaged Test Accurancy: 0.9917
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0069
+Std Test AUC: 0.0009
+evaluate time cost:6.215682506561279s
+clients training time cost:10.658372402191162s
+attn_optimize time cost:0.0320281982421875s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.3334, 0.3336, 0.3329],
+        [0.3334, 0.3335, 0.3331],
+        [0.3334, 0.3335, 0.3331]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5015, 0.4985],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2497],
+        [0.2495, 0.2511, 0.2497, 0.2496],
+        [0.2493, 0.2509, 0.2501, 0.2497],
+        [0.2493, 0.2509, 0.2500, 0.2498]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3333, 0.3335],
+        [0.3333, 0.3331, 0.3336],
+        [0.3333, 0.3331, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4991, 0.5009],
+        [0.4993, 0.5007]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.020018339157104492s
+iter time cost:16.983153581619263s
+-------------Round number: 31-------------
+Evaluate global model
+[running kmeans]: 2it [00:00, 399.72it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+Averaged Train Loss: 0.0195
+Averaged Test Accurancy: 0.9917
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0068
+Std Test AUC: 0.0009
+evaluate time cost:6.139292001724243s
+clients training time cost:10.823695182800293s
+attn_optimize time cost:0.033029794692993164s
+weights:tensor([[0.3334, 0.3336, 0.3329],
+        [0.3334, 0.3335, 0.3331],
+        [0.3334, 0.3335, 0.3331]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5015, 0.4985],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2497],
+        [0.2496, 0.2512, 0.2497, 0.2496],
+        [0.2493, 0.2509, 0.2502, 0.2496],
+        [0.2493, 0.2509, 0.2500, 0.2498]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3333, 0.3335],
+        [0.3333, 0.3331, 0.3336],
+        [0.3333, 0.3331, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4991, 0.5009],
+        [0.4993, 0.5007]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.024023056030273438s
+iter time cost:17.06307864189148s
+-------------Round number: 32-------------
+Evaluate global model
+Averaged Train Loss: 0.0190
+Averaged Test Accurancy: 0.9917
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0073
+Std Test AUC: 0.0009
+evaluate time cost:6.156164884567261s
+clients training time cost:10.514402151107788s
+attn_optimize time cost:0.03177785873413086s
+weights:tensor([[0.3334, 0.3336, 0.3329],
+        [0.3334, 0.3335, 0.3331],
+        [0.3334, 0.3335, 0.3331]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5015, 0.4985],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2497],
+        [0.2495, 0.2512, 0.2497, 0.2496],
+        [0.2493, 0.2509, 0.2502, 0.2496],
+        [0.2493, 0.2509, 0.2500, 0.2498]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3333, 0.3335],
+        [0.3333, 0.3331, 0.3336],
+        [0.3333, 0.3331, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4990, 0.5010],
+        [0.4993, 0.5007]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02101898193359375s
+iter time cost:16.76407265663147s
+-------------Round number: 33-------------
+Evaluate global model
+Averaged Train Loss: 0.0184
+Averaged Test Accurancy: 0.9919
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0071
+Std Test AUC: 0.0009
+evaluate time cost:6.1141440868377686s
+clients training time cost:10.707425594329834s
+attn_optimize time cost:0.031027555465698242s
+weights:tensor([[0.3335, 0.3336, 0.3329],
+        [0.3335, 0.3335, 0.3330],
+        [0.3334, 0.3335, 0.3331]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5015, 0.4985],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2495, 0.2510, 0.2498, 0.2497],
+        [0.2495, 0.2512, 0.2497, 0.2496],
+        [0.2493, 0.2509, 0.2502, 0.2496],
+        [0.2493, 0.2509, 0.2500, 0.2498]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3333, 0.3335],
+        [0.3333, 0.3331, 0.3336],
+        [0.3333, 0.3331, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4990, 0.5010],
+        [0.4993, 0.5007]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001810073852539s
+iter time cost:16.91465425491333s
+-------------Round number: 34-------------
+Evaluate global model
+Averaged Train Loss: 0.0179
+Averaged Test Accurancy: 0.9921
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0073
+Std Test AUC: 0.0009
+evaluate time cost:6.262579441070557s
+clients training time cost:10.797569274902344s
+attn_optimize time cost:0.0320277214050293s
+weights:tensor([[0.3335, 0.3336, 0.3329],
+        [0.3335, 0.3335, 0.3330],
+        [0.3335, 0.3335, 0.3331]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5015, 0.4985],
+        [0.5012, 0.4988]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.2495, 0.2511, 0.2498, 0.2497],
+        [0.2495, 0.2512, 0.2497, 0.2496],
+        [0.2493, 0.2509, 0.2502, 0.2496],
+        [0.2493, 0.2509, 0.2500, 0.2498]], device='cuda:0',
+       grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.3332, 0.3333, 0.3335],
+        [0.3333, 0.3331, 0.3336],
+        [0.3333, 0.3331, 0.3336]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.4990, 0.5010],
+        [0.4993, 0.5007]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.5009, 0.4991],
+        [0.5008, 0.4992]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02001810073852539s
+iter time cost:17.15323233604431s
+-------------Round number: 35-------------
+Evaluate global model
+Averaged Train Loss: 0.0173
+Averaged Test Accurancy: 0.9920
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0069
+Std Test AUC: 0.0009
+evaluate time cost:6.103315114974976s
+[running kmeans]: 2it [00:00, 285.45it/s, center_shift=0.000000, iteration=2, tol=0.000100]
+clients training time cost:10.79410982131958s
+attn_optimize time cost:0.031027793884277344s
+running k-means on cuda..
+device is :cuda
+device is :cuda
+weights:tensor([[0.3325, 0.3347, 0.3328],
+        [0.3326, 0.3348, 0.3326],
+        [0.3324, 0.3345, 0.3330]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1109, 0.1112, 0.1112, 0.1112, 0.1107, 0.1107, 0.1110, 0.1114, 0.1116],
+        [0.1108, 0.1112, 0.1113, 0.1110, 0.1106, 0.1109, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1107, 0.1112, 0.1114, 0.1115],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1109, 0.1112, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1111, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1113, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1108, 0.1112, 0.1112, 0.1111, 0.1107, 0.1109, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1106, 0.1108, 0.1112, 0.1113, 0.1116]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.022019624710083008s
+iter time cost:17.01052474975586s
+-------------Round number: 36-------------
+Evaluate global model
+Averaged Train Loss: 0.0168
+Averaged Test Accurancy: 0.9923
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0065
+Std Test AUC: 0.0009
+evaluate time cost:6.175182104110718s
+clients training time cost:10.598716497421265s
+attn_optimize time cost:0.04022669792175293s
+weights:tensor([[0.3325, 0.3347, 0.3328],
+        [0.3326, 0.3348, 0.3326],
+        [0.3324, 0.3346, 0.3330]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1109, 0.1112, 0.1112, 0.1112, 0.1107, 0.1107, 0.1110, 0.1114, 0.1116],
+        [0.1108, 0.1112, 0.1113, 0.1110, 0.1106, 0.1109, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1107, 0.1112, 0.1114, 0.1115],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1109, 0.1112, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1111, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1113, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1108, 0.1112, 0.1112, 0.1111, 0.1107, 0.1109, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1106, 0.1108, 0.1112, 0.1113, 0.1116]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02302074432373047s
+iter time cost:16.878740072250366s
+-------------Round number: 37-------------
+Evaluate global model
+Averaged Train Loss: 0.0164
+Averaged Test Accurancy: 0.9921
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0067
+Std Test AUC: 0.0009
+evaluate time cost:6.1472084522247314s
+clients training time cost:10.514345169067383s
+attn_optimize time cost:0.03603196144104004s
+weights:tensor([[0.3325, 0.3347, 0.3328],
+        [0.3326, 0.3348, 0.3326],
+        [0.3324, 0.3346, 0.3330]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1109, 0.1112, 0.1112, 0.1112, 0.1107, 0.1107, 0.1110, 0.1114, 0.1116],
+        [0.1108, 0.1112, 0.1113, 0.1110, 0.1106, 0.1109, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1107, 0.1112, 0.1114, 0.1115],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1109, 0.1112, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1111, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1112, 0.1113, 0.1111, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1108, 0.1112, 0.1112, 0.1111, 0.1106, 0.1109, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1106, 0.1108, 0.1112, 0.1113, 0.1116]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.022019147872924805s
+iter time cost:16.760643243789673s
+-------------Round number: 38-------------
+Evaluate global model
+Averaged Train Loss: 0.0160
+Averaged Test Accurancy: 0.9927
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0063
+Std Test AUC: 0.0009
+evaluate time cost:6.144887447357178s
+clients training time cost:10.696126699447632s
+attn_optimize time cost:0.0370330810546875s
+weights:tensor([[0.3325, 0.3347, 0.3328],
+        [0.3326, 0.3348, 0.3326],
+        [0.3324, 0.3346, 0.3330]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1109, 0.1112, 0.1112, 0.1112, 0.1107, 0.1107, 0.1110, 0.1114, 0.1117],
+        [0.1108, 0.1112, 0.1113, 0.1110, 0.1106, 0.1109, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1107, 0.1112, 0.1114, 0.1115],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1109, 0.1112, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1111, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1112, 0.1113, 0.1111, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1108, 0.1112, 0.1112, 0.1111, 0.1106, 0.1109, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1106, 0.1108, 0.1112, 0.1113, 0.1116]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.021018505096435547s
+iter time cost:16.943110704421997s
+-------------Round number: 39-------------
+Evaluate global model
+Averaged Train Loss: 0.0157
+Averaged Test Accurancy: 0.9927
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0067
+Std Test AUC: 0.0009
+evaluate time cost:6.096486568450928s
+clients training time cost:10.653684854507446s
+attn_optimize time cost:0.03803443908691406s
+weights:tensor([[0.3325, 0.3347, 0.3328],
+        [0.3326, 0.3348, 0.3326],
+        [0.3324, 0.3346, 0.3330]], device='cuda:0', grad_fn=<SoftmaxBackward0>)
+weights:tensor([[0.1109, 0.1112, 0.1112, 0.1112, 0.1107, 0.1107, 0.1110, 0.1114, 0.1117],
+        [0.1108, 0.1112, 0.1113, 0.1110, 0.1106, 0.1109, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1107, 0.1112, 0.1114, 0.1115],
+        [0.1110, 0.1111, 0.1113, 0.1112, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1109, 0.1112, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1111, 0.1112, 0.1111, 0.1107, 0.1108, 0.1112, 0.1113, 0.1116],
+        [0.1110, 0.1112, 0.1113, 0.1111, 0.1107, 0.1108, 0.1111, 0.1113, 0.1115],
+        [0.1108, 0.1112, 0.1112, 0.1111, 0.1106, 0.1108, 0.1112, 0.1114, 0.1116],
+        [0.1109, 0.1112, 0.1113, 0.1111, 0.1106, 0.1108, 0.1112, 0.1113, 0.1116]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+intra_cluster_agg time cost:0.02202010154724121s
+iter time cost:16.852264642715454s
+-------------Round number: 40-------------
+Evaluate global model
+Averaged Train Loss: 0.0154
+Averaged Test Accurancy: 0.9926
+Averaged Test AUC: 0.9993
+Std Test Accurancy: 0.0068
+Std Test AUC: 0.0009

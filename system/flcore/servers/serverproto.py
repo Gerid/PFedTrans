@@ -106,6 +106,12 @@ class FedProto(Server):
         print("Averaged Test Accurancy: {:.4f}".format(test_acc))
         # self.print_(test_acc, train_acc, train_loss)
         print("Std Test Accurancy: {:.4f}".format(np.std(accs)))
+        if self.if_wandb:
+            metrics = {"train_loss": train_loss,
+                               "test_acc": test_acc,
+                               "std_acc": np.std(accs)}
+            self.wandb_run.log(metrics)
+
             
 
 # https://github.com/yuetan031/fedproto/blob/main/lib/utils.py#L221

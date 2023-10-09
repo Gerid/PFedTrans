@@ -1,0 +1,69 @@
+{
+    "os": "Windows-10-10.0.22000-SP0",
+    "python": "3.8.11",
+    "heartbeatAt": "2023-04-04T07:25:33.182791",
+    "startedAt": "2023-04-04T07:25:31.620753",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "-data",
+        "Cifar10",
+        "-lbs",
+        "16",
+        "-jr",
+        "1",
+        "-nb",
+        "100",
+        "-m",
+        "dnn",
+        "-algo",
+        "FedTrans",
+        "-gr",
+        "200",
+        "-did",
+        "0",
+        "-go",
+        "dnn",
+        "-nc",
+        "100",
+        "-ere",
+        "1",
+        "-wandb",
+        "True"
+    ],
+    "state": "running",
+    "program": "main.py",
+    "codePath": "main.py",
+    "host": "DESKTOP-HSUG78F",
+    "username": "MSI",
+    "executable": "C:\\Users\\MSI\\miniconda3\\envs\\d2l\\python.exe",
+    "cpu_count": 12,
+    "cpu_count_logical": 24,
+    "cpu_freq": {
+        "current": 3701.0,
+        "min": 0.0,
+        "max": 3701.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3701.0,
+            "min": 0.0,
+            "max": 3701.0
+        }
+    ],
+    "disk": {
+        "total": 347.65429306030273,
+        "used": 152.16693496704102
+    },
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3080 Ti",
+            "memory_total": 12884901888
+        }
+    ],
+    "memory": {
+        "total": 31.927108764648438
+    }
+}

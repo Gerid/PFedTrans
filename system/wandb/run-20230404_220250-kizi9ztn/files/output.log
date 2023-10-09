@@ -1,0 +1,5 @@
+============= Running time: 0th =============
+Creating server and clients ...
+DNN(
+  (fc1): Linear(in_features=3072, out_features=100, bias=True)
+  (fc): Linear(in_features=100, out_features=10, bias=True)

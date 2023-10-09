@@ -1,0 +1,16 @@
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_setup.py:_flush():68] Configure stats pid to 11008
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_setup.py:_flush():68] Loading settings from C:\Users\MSI\.config\wandb\settings
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_setup.py:_flush():68] Loading settings from D:\Projects\PFedTrans\system\wandb\settings
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True'}
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program': 'main.py'}
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_init.py:_log_setup():492] Logging user logs to D:\Projects\PFedTrans\system\wandb\run-20230404_220231-kd9gkncc\logs\debug.log
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_init.py:_log_setup():493] Logging internal logs to D:\Projects\PFedTrans\system\wandb\run-20230404_220231-kd9gkncc\logs\debug-internal.log
+2023-04-04 22:02:31,978 INFO    MainThread:11008 [wandb_init.py:init():532] calling init triggers
+2023-04-04 22:02:31,979 INFO    MainThread:11008 [wandb_init.py:init():538] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.005, 'number_of_client': 100, 'epochs': 200}
+2023-04-04 22:02:31,979 INFO    MainThread:11008 [wandb_init.py:init():588] starting backend
+2023-04-04 22:02:31,979 INFO    MainThread:11008 [wandb_init.py:init():592] setting up manager
+2023-04-04 22:02:31,980 INFO    MainThread:11008 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=spawn, using: spawn
+2023-04-04 22:02:31,984 INFO    MainThread:11008 [wandb_init.py:init():599] backend started and connected
+2023-04-04 22:02:31,985 INFO    MainThread:11008 [wandb_init.py:init():687] updated telemetry
+2023-04-04 22:02:31,985 INFO    MainThread:11008 [wandb_init.py:init():727] communicating run to backend with 60.0 second timeout

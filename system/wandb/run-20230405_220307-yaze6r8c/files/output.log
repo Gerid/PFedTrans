@@ -1,0 +1,19 @@
+============= Running time: 0th =============
+Creating server and clients ...
+DNN(
+  (fc1): Linear(in_features=3072, out_features=100, bias=True)
+  (fc): Linear(in_features=100, out_features=100, bias=True)
+)
+Join ratio / total clients: 1.0 / 20
+Finished creating server and clients.
+-------------Round number: 0-------------
+Evaluate global model with one step update
+Average Test Accurancy: 0.1153
+-------------Round number: 1-------------
+Evaluate global model with one step update
+Average Test Accurancy: 0.7697
+-------------Round number: 2-------------
+Evaluate global model with one step update
+Average Test Accurancy: 0.8129
+-------------Round number: 3-------------
+Evaluate global model with one step update
