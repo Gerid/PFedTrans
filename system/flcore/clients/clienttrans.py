@@ -35,7 +35,7 @@ class clientTrans(Client):
         #for param in self.model.head.parameters():
             #param.requires_grad = True
         
-        self.phead = copy.deepcopy(self.model.head)
+        initial_params = {name: param.clone() for name, param in self.model.head.named_parameters()}
 
         for step in range(max_local_steps):
             for x, y in trainloader:
@@ -52,7 +52,10 @@ class clientTrans(Client):
 
                 loss.backward()
                 self.optimizer.step()
-        self.get_psub()
+        param_diffs = {name: (param - initial_params[name]) for name, param in self.model.head.named_parameters()}
+        self.psub = torch.cat([diff.view(-1) for diff in param_diffs.values()])
+        # term 1  test
+        # self.get_psub()
 
         #for param in self.model.base.parameters():
             #param.requires_grad = True
@@ -101,9 +104,11 @@ class clientTrans(Client):
         for p in self.phead.parameters():
             params.append(p.flatten())
         params = torch.cat(params)
-        emb_m = emb_layer(params) 
+        #emb_m = emb_layer(params) 
         emb_g = emb_layer(self.psub)
-        self.emb_vec = torch.cat([emb_m, emb_g])
+
+        self.emb_vec = emb_g 
+        #self.emb_vec = torch.cat([emb_m, emb_g])
     
     def DP_emb(self, emb_layer:nn.modules):
         params = []
@@ -194,6 +199,7 @@ class Cluster():
         for p in self.model.head.parameters():
             params.append(p.flatten())
         params = torch.cat(params)
-        emb_m = emb_layer(params)
+        #emb_m = emb_layer(params)
         emb_g = emb_layer(self.psub)
-        self.emb_vec = torch.cat([emb_m, emb_g])
+        self.emb_vec = emb_g
+        #self.emb_vec = torch.cat([emb_m, emb_g])

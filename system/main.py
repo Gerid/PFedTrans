@@ -57,6 +57,7 @@ def run(args, wandb_run=None):
     time_list = []
     reporter = MemReporter()
     model_str = args.model
+    
 
     for i in range(args.prev, args.times):
         print(f"\n============= Running time: {i}th =============")

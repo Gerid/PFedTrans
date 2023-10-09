@@ -97,6 +97,8 @@ class FedTrans(Server):
 
 
             start_time = time.time()
+            print("local training....")
+            psub_res = []
             for client in self.selected_clients:
                 #if i != 0:
                     #client.prev_head = weight_flatten(client.model.head)
@@ -104,7 +106,10 @@ class FedTrans(Server):
                 #client.cur_head = copy.deepcopy(client.model.head)
 
                 #self.use_dp: bool default is False, indicating do not use dp in client 
-                client.emb(self.emb_layer, self.use_dp)
+                client.emb(self.emb_layer)
+                psub_res.append(client.psub)
+            print("saving psub_res([psub1, psub2,...,]) to psub_res.pth") 
+            torch.save(psub_res, "psub_res.pth")
 
 
             end_time = time.time()
