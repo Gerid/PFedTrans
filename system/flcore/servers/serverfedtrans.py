@@ -38,16 +38,11 @@ class FedTrans(Server):
 
         
 
-        #head_params =  torch.cat([p.flatten() for p in self.global_model.head.parameters()])
-        #self.emb_layer = nn.Linear(len(head_params), self.emb_dim).to(self.device)
         self.emb_layer = nn.Linear(len(nn.utils.parameters_to_vector(self.global_model.head.parameters())),self.emb_dim).to(self.device)
-        #self.alpha_layer = nn.Linear(self.emb_dim, 1).to(self.device)
 
         # attn init
         self.attn_learning_rate = args.attn_learning_rate
         self.attn_init()
-        # TK -- ratio of cur head update (1-TK,TK)(agg_head, cur_head)
-        #self.tk = args.tk_ratio
         self.alpha = args.alpha
         self.decay_rate = args.decay_rate
 
@@ -58,8 +53,7 @@ class FedTrans(Server):
         print("Finished creating server and clients.")
 
     def attn_init(self):
-        self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim*2, attn_dim=self.attn_dim*2).to(self.device) # emb client model + grad
-        #self.inter_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb cluster 
+        self.intra_attn_model = Attn_Model(emb_dim=self.emb_dim).to(self.device) # emb client model + grad
         self.param_list = list(self.emb_layer.parameters())
         self.param_list.extend(list(self.intra_attn_model.parameters()))
         self.attn_optimizer = torch.optim.SGD([
@@ -100,10 +94,7 @@ class FedTrans(Server):
             print("local training....")
             psub_res = []
             for client in self.selected_clients:
-                #if i != 0:
-                    #client.prev_head = weight_flatten(client.model.head)
                 client.train()
-                #client.cur_head = copy.deepcopy(client.model.head)
 
                 #self.use_dp: bool default is False, indicating do not use dp in client 
                 client.emb(self.emb_layer)
@@ -111,6 +102,7 @@ class FedTrans(Server):
             print("saving psub_res([psub1, psub2,...,]) to psub_res.pth") 
             torch.save(psub_res, "psub_res.pth")
 
+            print("saved psub_res([psub1, psub2,...,]) to psub_res.pth") 
 
             end_time = time.time()
             print("clients training time cost:{}s".format(end_time-start_time))
@@ -137,8 +129,6 @@ class FedTrans(Server):
             self.recluster = True
             if self.recluster == True and i%self.every_recluster_eps == 0 and i!=0:
                 self.form_cluster(self.recluster)
-                #log recluster info
-                #self.logger()
             
             for cluster in self.active_clusters:
                 cluster.avg_update_model()
@@ -150,25 +140,17 @@ class FedTrans(Server):
             end_time = time.time()
             print("intra_cluster_agg time cost:{}s".format(end_time-start_time))
             
-            #for cluster in self.clusters:
-                #for client in cluster.clients:
-                    #alpha = self.alpha_layer(client.emb_vec)
-                    #alpha = torch.sigmoid(alpha)
-                    #client.model.head = self.w_add_params([self.tk*alpha,self.tk*(1-alpha),1-self.tk],[cluster.model.head, client.model.head, client.cur_head])
 
-            # threads = [Thread(target=client.train)
-            #            for client in self.clients]
-            # [t.start() for t in threads]
-            # [t.join() for t in threads]
 
             self.receive_models()
             self.aggregate_parameters()
             gend_time = time.time()
             print("iter time cost:{}s".format(gend_time-gst_time))
 
+            self.save_attn_model()
+            print("saved attn_model")
+
         print("\nBest global accuracy.")
-        # self.print_(max(self.rs_test_acc), max(
-        #     self.rs_train_acc), min(self.rs_train_loss))
         print(max(self.rs_test_acc))
 
         self.save_results()
@@ -181,6 +163,7 @@ class FedTrans(Server):
             os.makedirs(model_path)
         model_path = os.path.join(model_path, self.algorithm + "_server_attn" + ".pt")
         attn_models = {'emb_layer':self.emb_layer, 'intra_attn_model':self.intra_attn_model}
+        print(attn_models)
         torch.save(attn_models, model_path)
 
     def send_models(self, init_head=True):
@@ -253,28 +236,47 @@ class FedTrans(Server):
     """
 
     def intra_cluster_agg(self, cluster):
-        client_emb_list = [client.emb_vec.clone().reshape(1, -1) for client in cluster.clients]
+            # 获取每个客户端的表征向量
+            client_emb_list = [client.emb_vec.clone().reshape(1, -1) for client in cluster.clients]
 
-        x = torch.cat(client_emb_list, dim=0).squeeze(1)
-        cluster.lvs = []
-        if len(cluster.clients) == 1:
-            return
-        weights = self.intra_attn_model(x)
-        print("weights:{}".format(weights))
-        sub_head_list = [] 
-        for i in range(len(cluster.clients)):
-            sub_head_list.append(cluster.clients[i].sub_head)#sub_head:state_dict of sub_head
-        weights = weights.squeeze(0)
-        res = [client_emb_list,weights]
-        dc = self.alpha * self.decay_rate**(self.cur_iter/self.global_rounds)#update decay
-        for i in range(weights.size()[0]):
-            w = weights[i]
-            c_dict_with_g, c_dict = self.w_add_parameters(w, sub_head_list)
-            cluster.clients[i].add_sub(cluster.clients[i].sub_head,decay=dc-1)
-            cluster.clients[i].add_sub(c_dict, decay=dc)
-            cluster.lvs.append(list(c_dict_with_g.values()))
-            #client.head_temp = heads
-        return res
+            # 将表征向量拼接成一个矩阵
+            x = torch.cat(client_emb_list, dim=0).squeeze(1)
+
+            # 初始化聚类的局部模型参数列表
+            cluster.lvs = []
+
+            # 如果聚类中只有一个客户端，则直接返回
+            if len(cluster.clients) == 1:
+                return
+
+            # 对表征向量进行标准化
+            X_mean = torch.mean(x, dim=0)
+            X_std = torch.std(x, dim=0)
+            X_norm = (x - X_mean) / X_std
+
+            # 使用局部注意力模型计算每个客户端的权重
+            weights = self.intra_attn_model(X_norm)
+            print("weights:{}".format(weights))
+
+            # 获取每个客户端的子头部参数
+            sub_head_list = [] 
+            for i in range(len(cluster.clients)):
+                sub_head_list.append(cluster.clients[i].sub_head)
+
+            # 去除权重张量的冗余维度
+            weights = weights.squeeze(0)
+
+            # 将客户端的子头部参数和对应的权重合并，并更新聚类的局部模型参数
+            res = [client_emb_list,weights]
+            dc = self.alpha * self.decay_rate**(self.cur_iter/self.global_rounds)#update decay
+            for i in range(weights.size()[0]):
+                w = weights[i]
+                c_dict_with_g, c_dict = self.w_add_parameters(w, sub_head_list)
+                cluster.clients[i].add_sub(cluster.clients[i].sub_head,decay=dc-1)
+                cluster.clients[i].add_sub(c_dict, decay=dc)
+                cluster.lvs.append(list(c_dict_with_g.values()))
+
+            return res
 
     def cluster_update(self):
         for cluster in self.clusters:

@@ -25,11 +25,13 @@ class clientTrans(Client):
 
         # self.model.to(self.device)
         self.model.train()
+
         
         max_local_steps = self.local_steps
         if self.train_slow:
             max_local_steps = np.random.randint(1, max_local_steps // 2)
 
+        self.phead = copy.deepcopy(self.model.head)
         #for param in self.model.base.parameters():
             #param.requires_grad = False
         #for param in self.model.head.parameters():
@@ -52,52 +54,25 @@ class clientTrans(Client):
 
                 loss.backward()
                 self.optimizer.step()
-        param_diffs = {name: (param - initial_params[name]) for name, param in self.model.head.named_parameters()}
-        self.psub = torch.cat([diff.view(-1) for diff in param_diffs.values()])
-        # term 1  test
-        # self.get_psub()
-
-        #for param in self.model.base.parameters():
-            #param.requires_grad = True
-        #for param in self.model.head.parameters():
-            #param.requires_grad = False
-
-        #for step in range(max_local_steps):
-            #for x, y in trainloader:
-                #if type(x) == type([]):
-                    #x[0] = x[0].to(self.device)
-                #else:
-                    #x = x.to(self.device)
-                #y = y.to(self.device)
-                #if self.train_slow:
-                    #time.sleep(0.1 * np.abs(np.random.rand()))
-                #self.optimizer.zero_grad()
-                #output = self.model(x)
-                #loss = self.loss(output, y)
-
-                #loss.backward()
-                #self.optimizer.step()
-
+        self.get_subhead()
                 
          
-        # self.model.cpu()
         del trainloader
 
-        # print(torch.dot(sub, sub))
 
         self.train_time_cost['num_rounds'] += 1
         self.train_time_cost['total_cost'] += time.time() - start_time
 
-    def get_psub(self):
-        psub = []
-        self.sub_head = OrderedDict()
+    def get_subhead(self):
+        self.psub = []
+        self.sub_head = {}
+        for name, param1 in self.model.head.named_parameters():
+            param2 = self.phead.state_dict()[name]
+            diff = param1.data.clone() - param2.data.clone()
+            self.sub_head[name] = diff
+            self.psub.append(diff.view(-1))
+        self.psub = torch.cat(self.psub, dim=0)
 
-        for (n1,p_1), (n2, p_2) in zip(self.model.head.named_parameters(), self.phead.named_parameters()):
-            assert(n1==n2)    
-            self.sub_head[n1] = p_1.data.clone() - p_2.data.clone()
-            sub = p_1.data.view(-1) - p_2.data.view(-1)
-            psub.append(sub)
-        self.psub = torch.concat(psub, dim=0)
 
     def emb(self, emb_layer:nn.modules, use_dp=False):
         params = []
@@ -122,7 +97,7 @@ class clientTrans(Client):
 
     def add_sub(self, sub, decay=1):
         for n, p in self.model.head.named_parameters():
-            p.data = p.data + sub[n].clone() * decay
+            p = p.detach() + sub[n].detach() * decay
             
     
 

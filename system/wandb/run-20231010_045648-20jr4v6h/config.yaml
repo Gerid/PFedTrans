@@ -1,0 +1,19 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.9.7
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.8.11
+epochs:
+  desc: null
+  value: 1000
+learning_rate:
+  desc: null
+  value: 0.005
+number_of_client:
+  desc: null
+  value: 20
